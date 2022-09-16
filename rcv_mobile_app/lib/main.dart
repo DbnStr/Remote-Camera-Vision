@@ -68,17 +68,27 @@ class SecondPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Some camera'),
+        title: const Text('Camera'),
       ),
       body: Center(
         child: Column(
           children: <Widget>[
+            Text(
+              cameras[index].name,
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                  height: 2),
+            ),
+            const Divider(
+              height: 40,
+              thickness: 5,
+              endIndent: 0,
+              color: Colors.black,
+            ),
             Image.asset('assets/images/sample1.jpg',
                 height: 400,
                 width: 400,
-            ),
-            Text(
-                cameras[index].name
             ),
             ListTile(
               //contentPadding: EdgeInsets.all(<some value here>),//change for side padding
