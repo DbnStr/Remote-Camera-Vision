@@ -46,8 +46,13 @@ class _HomePageState extends State<HomePage> {
         itemCount: cameras.length,
         itemBuilder: (context, index) {
           return ListTile(
+              leading: Image.asset('assets/images/camera_icon.jpeg'),
               title: Text(
                   cameras[index].name
+              ),
+              shape: Border(
+                bottom: BorderSide(),
+                
               ),
               onTap: () { // NEW from here .// ..
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
