@@ -3,6 +3,7 @@ import logging
 import os
 import pickle
 import re
+import time
 
 import cv2
 import face_recognition
@@ -116,5 +117,19 @@ class MLExecutor:
                 name = max(counts, key=counts.get)
 
             persons.append({'name': name, 'coordinates': (top, right, bottom, left)})
+
+            # Рисуем рамку
+            cv2.rectangle(image, (left, top), (right, bottom), (0, 0, 255), 2)
+
+            # Рисуем метку с именем
+            cv2.rectangle(image, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
+            font = cv2.FONT_HERSHEY_DUPLEX
+            cv2.putText(image, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
+
         jpg_as_text = base64.b64encode(cv2.imencode('.jpg', image)[1]).decode()
+
+        # Выводим изоражение
+        cv2.imshow('Photo', image)
+        time.sleep(3)
+
         return jpg_as_text, persons
