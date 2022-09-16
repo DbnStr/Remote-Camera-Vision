@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
               ),
               onTap: () { // NEW from here .// ..
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return SecondPage(index: 1);
+                  return SecondPage(index: index);
                 }));
               });
         },
