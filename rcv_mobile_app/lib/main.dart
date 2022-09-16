@@ -99,8 +99,27 @@ class SecondPage extends StatelessWidget {
               //contentPadding: EdgeInsets.all(<some value here>),//change for side padding
               title: Row(
                 children: <Widget>[
-                  Expanded(child: TextButton(onPressed: () {},child: Text("Вызвать полицию"))),
-                  Expanded(child: TextButton(onPressed: () {},child: Text("Открыть дверь"))),
+                  Expanded(child: ElevatedButton(
+                    child: Text('Вызвать полицию'),
+                    onPressed: () {},
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Color(0xFFFC3503)),
+                        padding: MaterialStateProperty.all(EdgeInsets.all(10)),
+                        minimumSize: MaterialStateProperty.all(Size(200, 50)),
+                        maximumSize: MaterialStateProperty.all(Size(200, 50)),
+                        textStyle: MaterialStateProperty.all(TextStyle(fontSize: 14))),
+                  )),
+                  Expanded(child: ElevatedButton(
+                    child: Text('Открыть дверь'),
+                    onPressed: () {},
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Color(0xFFB9FC9D)),
+                        foregroundColor: MaterialStateProperty.all(Color(0xFF67CF3C)),
+                        padding: MaterialStateProperty.all(EdgeInsets.all(10)),
+                        minimumSize: MaterialStateProperty.all(Size(200, 50)),
+                        maximumSize: MaterialStateProperty.all(Size(200, 50)),
+                        textStyle: MaterialStateProperty.all(TextStyle(fontSize: 14))),
+                  )),
                 ],
               ),
             ),
