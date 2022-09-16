@@ -107,7 +107,7 @@ class MLExecutor:
         persons = []
         for (top, right, bottom, left), encoding in zip(face_locations, encodings):
             matches = face_recognition.compare_faces(self.known_encodings, encoding)
-            name = "Неизвестный"
+            name = "Unknown"
             if True in matches:
                 matched_ids = [i for (i, b) in enumerate(matches) if b]
                 counts = {}
@@ -122,14 +122,15 @@ class MLExecutor:
             cv2.rectangle(image, (left, top), (right, bottom), (0, 0, 255), 2)
 
             # Рисуем метку с именем
-            cv2.rectangle(image, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
-            font = cv2.FONT_HERSHEY_DUPLEX
+            font = cv2.FONT_HERSHEY_COMPLEX
+            print(name)
             cv2.putText(image, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
 
         jpg_as_text = base64.b64encode(cv2.imencode('.jpg', image)[1]).decode()
 
         # Выводим изоражение
         cv2.imshow('Photo', image)
+        cv2.waitKey(0)
         time.sleep(3)
 
         return jpg_as_text, persons
