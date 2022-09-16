@@ -10,6 +10,9 @@ opencv-python = "*"
 dlib = "*"
 face-recognition = "*"
 imutils = "*"
+mqtt = "*"
+paho-mqtt = "*"
+matplotlib = "*"
 
 [dev-packages]
 

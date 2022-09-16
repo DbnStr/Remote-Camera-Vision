@@ -1,10 +1,16 @@
+import base64
 import logging
+import os
 import pickle
 import re
 
 import cv2
 import face_recognition
 from imutils import paths
+
+cascPathface = os.path.dirname(
+ cv2.__file__) + "/data/haarcascade_frontalface_alt2.xml"
+faceCascade = cv2.CascadeClassifier(cascPathface)
 
 
 def read_test_set():
@@ -92,12 +98,13 @@ class MLExecutor:
         человек, с чьими изображениями получилось больше всего совпадений, признается распознанным
         на данном фото
 
-        Возвращается список распознанных людей
+        Возвращается закодированное изображение и список распознанных людей
         """
         rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         encodings = face_recognition.face_encodings(rgb)
+        face_locations = face_recognition.face_locations(rgb)
         persons = []
-        for encoding in encodings:
+        for (top, right, bottom, left), encoding in zip(face_locations, encodings):
             matches = face_recognition.compare_faces(self.known_encodings, encoding)
             name = "Неизвестный"
             if True in matches:
@@ -107,5 +114,7 @@ class MLExecutor:
                     name = self.names[i]
                     counts[name] = counts.get(name, 0) + 1
                 name = max(counts, key=counts.get)
-            persons.append(name)
-        return persons
+
+            persons.append({'name': name, 'coordinates': (top, right, bottom, left)})
+        jpg_as_text = base64.b64encode(cv2.imencode('.jpg', image)[1]).decode()
+        return jpg_as_text, persons
