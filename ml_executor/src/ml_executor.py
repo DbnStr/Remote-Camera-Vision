@@ -1,4 +1,5 @@
 import base64
+import binascii
 import logging
 import os
 import pickle
@@ -7,6 +8,7 @@ import time
 
 import cv2
 import face_recognition
+import numpy as np
 from imutils import paths
 
 cascPathface = os.path.dirname(
@@ -118,19 +120,20 @@ class MLExecutor:
 
             persons.append({'name': name, 'coordinates': (top, right, bottom, left)})
 
-            # Рисуем рамку
-            cv2.rectangle(image, (left, top), (right, bottom), (0, 0, 255), 2)
+            # # Рисуем рамку
+            # cv2.rectangle(image, (left, top), (right, bottom), (0, 0, 255), 2)
+            #
+            # # Рисуем метку с именем
+            # font = cv2.FONT_HERSHEY_COMPLEX
+            # print(name)
+            # cv2.putText(image, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
 
-            # Рисуем метку с именем
-            font = cv2.FONT_HERSHEY_COMPLEX
-            print(name)
-            cv2.putText(image, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
+        img_encode = cv2.imencode('.jpg', image)[1]
+        jpg_as_text = base64.b64encode(img_encode).decode()
 
-        jpg_as_text = base64.b64encode(cv2.imencode('.jpg', image)[1]).decode()
-
-        # Выводим изоражение
-        cv2.imshow('Photo', image)
-        cv2.waitKey(0)
-        time.sleep(3)
+        # # Выводим изоражение
+        # cv2.imshow('Photo', image)
+        # cv2.waitKey(0)
+        # time.sleep(3)
 
         return jpg_as_text, persons

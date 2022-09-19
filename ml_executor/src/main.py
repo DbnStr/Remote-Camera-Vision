@@ -1,7 +1,5 @@
 import datetime
 import logging
-import os
-import cv2
 
 from ml_executor import MLExecutor, read_test_set
 from mqtt_publisher import MQTTPublisher
@@ -25,7 +23,7 @@ if __name__ == '__main__':
         image_encoded, results = ml_executor.face_recognize(test_image)
         time = str(datetime.datetime.now())
         data = {
-            'image': None,
+            'image': image_encoded,
             'persons': results,
             'time': time
         }
