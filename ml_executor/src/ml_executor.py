@@ -48,7 +48,7 @@ class MLExecutor:
         """
         self.names = []
 
-        logger = logging.getLogger('{}.ml_executor'.format(__name__))
+        logger = logging.getLogger('ml_executor.{}'.format(__name__))
 
     def train(self):
         """
