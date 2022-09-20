@@ -59,10 +59,10 @@ class MLExecutor:
         for image_dir in dirs:
             image_subpaths = list(paths.list_images(image_dir))
             person_name = image_dir.split("/")[-1]
+            id = uuid.uuid4()
             for (j, image_subpath) in enumerate(image_subpaths):
 
                 # person_name = re.match(r'(?P<name>[^.]*).jpg', file_name).group('name')
-                id = uuid.uuid4()
                 self.logger.debug("subpath: {}".format(image_subpath))
                 self.logger.debug("name: {}".format(person_name))
 
