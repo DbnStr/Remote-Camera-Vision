@@ -16,7 +16,7 @@ class CameraExecutor:
 
     def __init__(self):
         self.ml_executor = MLExecutor()
-        self.ml_executor.load_data()
+        # self.ml_executor.load_data()
 
         self.mqtt_publisher = MQTTPublisher()
         self.mqtt_publisher.run()
