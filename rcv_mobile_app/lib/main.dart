@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:rcv_mobile_app/MQQTBrowserManager.dart';
 import 'package:rcv_mobile_app/camera.dart';
 /* file: main.dart */
-
 List<Camera> cameras = [];
 
 void main() {
@@ -28,12 +28,38 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  int _counter = 0;
+  MQTTBrowserManager mqttBrowserManager = MQTTBrowserManager();
+  final String pubTopic = "test/counter";
+
   @override
   void initState() {
+    setupMqttClient();
+    // setupUpdatesListener();
     super.initState();
     cameras.add(Camera("Камера на Измайловской"));
     cameras.add(Camera("Камера в Дубне"));
+  }
 
+  Future<void> setupMqttClient() async {
+    await mqttBrowserManager.connect();
+    mqttBrowserManager.subscribe(pubTopic);
+  }
+
+  // void setupUpdatesListener() {
+  //   mqttBrowserManager
+  //       .getMessagesStream()!
+  //       .listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
+  //     final recMess = c![0].payload as MqttPublishMessage;
+  //     final pt =
+  //     MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+  //     print('MQTTClient::Message received on topic: <${c[0].topic}> is $pt\n');
+  //   });
+
+  @override
+  void dispose() {
+    mqttBrowserManager.disconnect();
+    super.dispose();
   }
 
   @override
@@ -52,10 +78,12 @@ class _HomePageState extends State<HomePage> {
               ),
               shape: Border(
                 bottom: BorderSide(),
-                
+
               ),
               onTap: () { // NEW from here .// ..
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  mqttBrowserManager.publishMessage(
+                      pubTopic, "Increment button pushed ${_counter.toString()} times.");
                   return SecondPage(index: index);
                 }));
               });
@@ -67,8 +95,11 @@ class _HomePageState extends State<HomePage> {
 
 
 class SecondPage extends StatelessWidget {
-  const SecondPage({Key? key, required this.index}) : super(key: key);
+  SecondPage({Key? key, required this.index}) :
+        super(key: key);
+        // imagePath = 'assets/images/sample ' + (index + 1).toString() + '.jpg';;
   final int index;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
