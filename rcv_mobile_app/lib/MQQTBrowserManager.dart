@@ -1,12 +1,14 @@
 import 'dart:io';
 import 'package:mqtt_client/mqtt_client.dart';
-import 'package:mqtt_client/mqtt_browser_client.dart';
+import 'package:mqtt_client/mqtt_server_client.dart';
 
 class MQTTBrowserManager {
-  MqttBrowserClient client =
+  MqttServerClient client =
   // MqttBrowserClient('ws://test.mosquitto.org', '');
   // MqttBrowserClient.withPort('ws://test.mosquitto.org', 'mobile_client', 1883);
-  MqttBrowserClient('ws://127.0.0.1:1883', 'flutter01');
+  //MqttBrowserClient('ws://127.0.0.1:1883', 'flutter01');
+  //MqttServerClient client =
+  MqttServerClient.withPort('10.0.2.2', 'mobile_client', 1883);
   Future<int> connect() async {
     client.logging(on: true);
     client.keepAlivePeriod = 60;
@@ -24,7 +26,7 @@ class MQTTBrowserManager {
     client.connectionMessage = connMessage;
 
     try {
-      await client.connect();
+      await client.connect('check');
     } on NoConnectionException catch (e) {
       print('MQTTClient::Client exception - $e');
       client.disconnect();
