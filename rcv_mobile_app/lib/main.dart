@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> setupMqttClient() async {
     await mqttBrowserManager.connect();
-    mqttBrowserManager.subscribe(pubTopic);
+    // mqttBrowserManager.subscribe(pubTopic);
   }
 
   // void setupUpdatesListener() {
@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
-    mqttBrowserManager.disconnect();
+    // mqttBrowserManager.disconnect();
     super.dispose();
   }
 
@@ -82,8 +82,8 @@ class _HomePageState extends State<HomePage> {
               ),
               onTap: () { // NEW from here .// ..
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  mqttBrowserManager.publishMessage(
-                      pubTopic, "Increment button pushed ${_counter.toString()} times.");
+                  // mqttBrowserManager.publishMessage(
+                  //     pubTopic, "Increment button pushed ${_counter.toString()} times.");
                   return SecondPage(index: index);
                 }));
               });
