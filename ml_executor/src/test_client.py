@@ -58,7 +58,9 @@ def subscribe(client: mqtt):
 
             # Выводим изоражение
             cv2.imshow('PhotoOnClient', image_buffer)
-            cv2.waitKey(0)
+            # Для выхода нажать 'q'
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                return
 
     client.subscribe(topic)
     client.on_message = on_message

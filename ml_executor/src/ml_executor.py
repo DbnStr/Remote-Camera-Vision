@@ -59,7 +59,8 @@ class MLExecutor:
         for image_dir in dirs:
             image_subpaths = list(paths.list_images(image_dir))
             person_name = image_dir.split("/")[-1]
-            id = uuid.uuid4()
+            id = uuid.uuid4().int
+            self.db.add_person(id, person_name)
             for (j, image_subpath) in enumerate(image_subpaths):
 
                 # person_name = re.match(r'(?P<name>[^.]*).jpg', file_name).group('name')
@@ -107,7 +108,7 @@ class MLExecutor:
             known_encodings = [encoding[self.db.encoding_data_field] for encoding in self.db.get_encodings()]
             idx = [encoding[self.db.person_id_field] for encoding in self.db.get_encodings()]
             matches = face_recognition.compare_faces(known_encodings, encoding)
-            name_id = "Unknown"
+            name_id = -1
             if True in matches:
                 matched_ids = [i for (i, b) in enumerate(matches) if b]
                 counts = {}
@@ -116,12 +117,12 @@ class MLExecutor:
                     counts[name_id] = counts.get(name_id, 0) + 1
                 name_id = max(counts, key=counts.get)
 
-            if name_id == "Unknown":
+            if name_id == -1:
                 name = "Unknown"
             else:
                 name = self.db.get_name_by_id(name_id)
 
-            persons.append({'name': name, 'coordinates': (top, right, bottom, left)})
+            persons.append({'id': name_id, 'name': name, 'coordinates': (top, right, bottom, left)})
 
             # # Рисуем рамку
             # cv2.rectangle(image, (left, top), (right, bottom), (0, 0, 255), 2)

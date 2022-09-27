@@ -41,6 +41,9 @@ class DataBase(AbstractDataBase):
         self.persons[id] = name
         self.known_encodings.append({self.person_id_field: id, self.encoding_data_field: encoding})
 
+    def add_person(self, person_id, name):
+        self.persons[person_id] = name
+
     def add_encoding(self, id, encoding):
         self.known_encodings.append({self.person_id_field: id, self.encoding_data_field: encoding})
 

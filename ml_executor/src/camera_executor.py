@@ -1,4 +1,5 @@
 import datetime
+import json
 import logging
 
 import cv2
@@ -53,7 +54,7 @@ class CameraExecutor:
 
             image_encoded, results = self.ml_executor.face_recognize(frame)
             new_names = [result['name'] for result in results]
-            if self.is_there_new_persons():
+            if self.is_there_new_persons(new_names):
                 time = str(datetime.datetime.now())
                 data = {
                     'image': image_encoded,
@@ -62,7 +63,7 @@ class CameraExecutor:
                 }
                 self.last_recognized_persons = new_names
                 self.mqtt_publisher.send('recognition', data)
-                self.logger.info("На кадре распознаны {}".format(results))
+                self.logger.info("На кадре распознаны {}".format(json.dumps(results)))
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
