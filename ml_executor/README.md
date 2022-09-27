@@ -11,13 +11,13 @@ host = localhost </br>
 port = 1883 </br>
 
 Сообщения имеюь следующий вид:
-```json
+```json lines
 {
   "image": image_encoded(str),
   "persons": {
     "id": person_id(int), //-1 если личность человека не установлена, иначе uuid4
     "name": person_name(str), // "Unknown" если личность человека не установлена
-    "coordinates": [top, right, bottom, left]([]int),
+    "coordinates": [top(int), right(int), bottom(int), left(int)],
   },
   "time": cur_datetime(str)
 }
