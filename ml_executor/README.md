@@ -14,11 +14,14 @@ port = 1883 </br>
 ```json lines
 {
   "image": image_encoded(str),
-  "persons": {
+  "persons": [
+    {
     "id": person_id(int), //-1 если личность человека не установлена, иначе uuid4
     "name": person_name(str), // "Unknown" если личность человека не установлена
     "coordinates": [top(int), right(int), bottom(int), left(int)],
-  },
+    },
+    ...
+  ],
   "time": cur_datetime(str)
 }
 ```
