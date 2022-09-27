@@ -11,7 +11,7 @@ host = localhost </br>
 port = 1883 </br>
 
 Сообщения имеюь следующий вид:
-```json lines
+```
 {
   "image": image_encoded(str),
   "persons": {
