@@ -16,14 +16,14 @@ port = 1883 </br>
   "image": image_encoded(str),
   "persons": [
     {
-    "id": person_id(int), //-1 если личность человека не установлена, иначе uuid4
-    "name": person_name(str), // "Unknown" если личность человека не установлена
-    "coordinates": {
-                        'top': top(int), 
-                        'right': right(int), 
-                        'bottom': bottom(int), 
-                        'left': left(int)
-                    }
+      "id": person_id(int), //-1 если личность человека не установлена, иначе uuid4
+      "name": person_name(str), // "Unknown" если личность человека не установлена
+      "coordinates": {
+        "top": top(int), 
+        "right": right(int), 
+        "bottom": bottom(int), 
+        "left": left(int)
+      }
     },
     ...
   ],
