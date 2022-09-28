@@ -11,7 +11,7 @@ from imutils import paths
 from src.db.fake_db import DataBase
 
 cascPathface = os.path.dirname(
- cv2.__file__) + "/data/haarcascade_frontalface_alt2.xml"
+    cv2.__file__) + "/data/haarcascade_frontalface_alt2.xml"
 faceCascade = cv2.CascadeClassifier(cascPathface)
 
 
@@ -122,7 +122,12 @@ class MLExecutor:
             else:
                 name = self.db.get_name_by_id(name_id)
 
-            persons.append({'id': name_id, 'name': name, 'coordinates': (top, right, bottom, left)})
+            persons.append({'id': name_id, 'name': name, 'coordinates': {
+                'top': top,
+                'right': right,
+                'bottom': bottom,
+                'left': left
+            }})
 
             # # Рисуем рамку
             # cv2.rectangle(image, (left, top), (right, bottom), (0, 0, 255), 2)

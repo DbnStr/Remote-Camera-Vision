@@ -46,14 +46,14 @@ def subscribe(client: mqtt):
 
             for person in data['persons']:
                 name = person['name']
-                (top, right, bottom, left) = person['coordinates']
+                coordinates = person['coordinates']
                 # Рисуем рамку
-                cv2.rectangle(image_buffer, (left, top), (right, bottom), (0, 0, 255), 2)
+                cv2.rectangle(image_buffer, (coordinates['left'], coordinates['top']), (coordinates['right'], coordinates['bottom']), (0, 0, 255), 2)
 
                 # Рисуем метку с именем
                 font = cv2.FONT_HERSHEY_COMPLEX
                 print(name)
-                cv2.putText(image_buffer, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
+                cv2.putText(image_buffer, name, (coordinates['left'] + 6, coordinates['bottom'] - 6), font, 1.0, (255, 255, 255), 1)
 
 
             # Выводим изоражение
