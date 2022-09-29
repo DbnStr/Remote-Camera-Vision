@@ -1,0 +1,29 @@
+import datetime
+import logging
+import pickle
+
+import cv2
+
+from src.ml_executor import MLExecutor
+from src.mqtt_publisher import MQTTPublisher
+
+
+class FakeCameraExecutor:
+
+    def __init__(self):
+        self.ml_executor = MLExecutor()
+        # self.ml_executor.load_data()
+
+        self.mqtt_publisher = MQTTPublisher()
+        self.mqtt_publisher.run()
+
+        self.video_capture = cv2.VideoCapture(0)
+
+        self.logger = logging.getLogger('ml_executor.{}'.format(__name__))
+
+        self.last_recognized_persons = []
+
+    def run(self):
+
+        data = pickle.loads(open("test_message.txt", "rb").read())
+        self.mqtt_publisher.send('recognition', data)
