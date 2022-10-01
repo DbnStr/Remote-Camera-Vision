@@ -15,4 +15,16 @@
 
 ![image](https://user-images.githubusercontent.com/67962930/190469174-c26ffc86-4a3a-4b09-90b0-8eecc063284b.png)
 
+## Настройка
+
+На данном этапе испольузется MQTT Broker, который запускается локально.
+Гайд по установке MQTT сервера: http://onreader.mdl.ru/MQTTProgrammingWithPython/content/Ch01.html
+
+Параметры настройки клиента для взаимодействия с брокером 
+host = 127.0.0.1 
+port = 1883 
+
+Подключение возможно без предоставления логина и пароля.
+
+Запуск MQTT Broker: mosquitto -c [Путь к файлу mosquitto.conf (содержится в основной папке проекта)]
 
