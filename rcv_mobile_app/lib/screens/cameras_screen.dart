@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rcv_mobile_app/models/current_camera_model.dart';
 import 'package:rcv_mobile_app/screens/camera_screen.dart';
 
 import '../camera.dart';
@@ -52,7 +54,9 @@ class _CamerasScreenState extends State<CamerasScreen> {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   // mqttBrowserManager.publishMessage(
                   //     pubTopic, "Increment button pushed ${_counter.toString()} times.");
-                  return CameraScreen(index: index, cameraName: _cameras[index].name);
+                  return ChangeNotifierProvider(
+                      create: (_) => CameraModel(),
+                      child: CameraScreen(index: index, cameraName: _cameras[index].name));
                 }));
               });
         },

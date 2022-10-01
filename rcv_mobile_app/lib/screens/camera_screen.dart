@@ -1,6 +1,11 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rcv_mobile_app/models/current_camera_model.dart';
+
+import '../constants.dart';
+import '../services/MQTT.dart';
 
 class CameraScreen extends StatefulWidget {
 
@@ -17,29 +22,38 @@ class CameraScreen extends StatefulWidget {
 class _CameraScreenState extends State<CameraScreen> {
 
   late String cameraName;
+  late CameraModel model;
+  late MQTT mqtt;
 
   @override
   void initState() {
+    super.initState();
     log("init camera screen state");
     cameraName = widget.cameraName;
-    super.initState();
-    // final state = Provider.of<CameraModel>(context);
-    // final mqtt = MQTT(Constants.MQTT_HOST_NAME,
-    //     Constants.MQTT_PORT,
-    //     Constants.TOPIC_NAME,
-    //     state);
-    // mqtt.connect();
+    final topics = <String>[];
+    topics.add(Constants.RECOGNITION_TOPIC_NAME);
+    topics.add(Constants.CURENT_VIEW_TOPIC_NAME);
+
+    mqtt = MQTT(Constants.MQTT_HOST_NAME,
+        Constants.MQTT_PORT,
+        topics);
+    mqtt.initializeMQTTClient();
+    mqtt.connect();
   }
 
   @override
   void dispose() {
     log('dispose camera screen state');
-    // mqttBrowserManager.disconnect();
+    mqtt.disconnect();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    log('build camera screen widget');
+    model = Provider.of<CameraModel>(context);
+    mqtt.model = model;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Camera'),
@@ -48,7 +62,7 @@ class _CameraScreenState extends State<CameraScreen> {
         child: Column(
           children: <Widget>[
             Text(
-              cameraName,
+              'Alexey',
               style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 30,
@@ -60,17 +74,17 @@ class _CameraScreenState extends State<CameraScreen> {
               endIndent: 0,
               color: Colors.black,
             ),
-            Image.asset('assets/images/sample1.jpg',
-              height: 400,
-              width: 400,
-            ),
+            model.currentView,
             ListTile(
               //contentPadding: EdgeInsets.all(<some value here>),//change for side padding
               title: Row(
                 children: <Widget>[
                   Expanded(child: ElevatedButton(
                     child: Text('Вызвать полицию'),
-                    onPressed: () {},
+                    onPressed: () {
+                      log("CAMERA SCREEN :: PRESSED");
+                      mqtt.publishNotification();
+                    },
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(Color(0xFFFC3503)),
                         padding: MaterialStateProperty.all(EdgeInsets.all(10)),
