@@ -1,12 +1,11 @@
-import datetime
 import logging
 
-from src.camera_executor import CameraExecutor
+from src.fake_camera import FakeCameraExecutor
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 if __name__ == '__main__':
-    camera_executor = CameraExecutor()
+    camera_executor = FakeCameraExecutor()
     camera_executor.run()
 
 

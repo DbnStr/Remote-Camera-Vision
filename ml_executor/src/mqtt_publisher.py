@@ -6,10 +6,13 @@ import paho.mqtt.client as mqtt
 
 username = 'emqx'
 password = 'public'
+# host = 'broker.emqx.io'
+host = 'localhost'
+
 
 class MQTTPublisher:
 
-    def __init__(self, host='broker.emqx.io', port=1883):
+    def __init__(self, host=host, port=1883):
         self.mqtt_host = host
         self.mqtt_port = port
         self.client_id = f'python-mqtt-{random.randint(0, 100)}'
@@ -26,7 +29,7 @@ class MQTTPublisher:
                 print("Failed to connect, return code {}\n".format(rc))
 
         client = mqtt.Client(self.client_id)
-        client.username_pw_set(username, password)
+        # client.username_pw_set(username, password)
         client.on_connect = on_connect
         client.connect(self.mqtt_host, self.mqtt_port)
         return client
@@ -43,4 +46,4 @@ class MQTTPublisher:
         if status == 0:
             print(f"Send `{msg}` to topic `{topic}`")
         else:
-            print(f"Failed to send message to topic {topic}")
+            print(f"Failed to send message to topic {topic}: {result}")
