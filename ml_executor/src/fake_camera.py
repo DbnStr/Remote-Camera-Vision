@@ -2,8 +2,6 @@ import datetime
 import logging
 import pickle
 
-import cv2
-
 from src.ml_executor import MLExecutor
 from src.mqtt_publisher import MQTTPublisher
 
@@ -16,8 +14,6 @@ class FakeCameraExecutor:
 
         self.mqtt_publisher = MQTTPublisher()
         self.mqtt_publisher.run()
-
-        self.video_capture = cv2.VideoCapture(0)
 
         self.logger = logging.getLogger('ml_executor.{}'.format(__name__))
 
