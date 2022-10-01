@@ -62,7 +62,7 @@ class _CameraScreenState extends State<CameraScreen> {
         child: Column(
           children: <Widget>[
             Text(
-              'Alexey',
+              cameraName,
               style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 30,
