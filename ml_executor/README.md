@@ -33,7 +33,7 @@ topic = 'recognition' </br>
   "image": image_encoded(str), //Изображение кодируется с помощью метода base64
   "persons": [
     {
-      "id": person_id(int), //-1 если личность человека не установлена, иначе uuid4
+      "id": person_id(str), //-1 если личность человека не установлена, иначе uuid4
       "name": person_name(str), // "Unknown" если личность человека не установлена
       "coordinates": {
         "top": top(int), 
