@@ -39,6 +39,7 @@ dependencies:
   provider:
   mqtt_client: ^9.7.2
   dart_websockets: ^1.0.6
+  stacked: ^3.0.0
 
 dev_dependencies:
   flutter_test:
