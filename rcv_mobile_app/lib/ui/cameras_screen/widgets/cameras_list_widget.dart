@@ -26,7 +26,7 @@ class CamerasList extends ViewModelWidget<CamerasScreenViewModel> {
                         Container(
                           width: double.infinity,
                           height: 250,
-                          margin: const EdgeInsets.only(bottom: 50),
+                          margin: const EdgeInsets.only(bottom: 60),
                           decoration: const BoxDecoration(
                             image: DecorationImage(
                                 image: NetworkImage(
@@ -39,7 +39,7 @@ class CamerasList extends ViewModelWidget<CamerasScreenViewModel> {
                           ),
                         ),
                         Container(
-                            height: 50,
+                            height: 60,
                             alignment: Alignment.centerLeft,
                             padding: const EdgeInsets.all(12),
                             decoration: const BoxDecoration(
@@ -50,7 +50,7 @@ class CamerasList extends ViewModelWidget<CamerasScreenViewModel> {
                             ),
                             child: Text(item.name,
                                 style: const TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black))),
                         Positioned.fill(
