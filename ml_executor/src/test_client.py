@@ -9,7 +9,8 @@ import numpy as np
 
 import paho.mqtt.client as mqtt
 
-topic = 'recognition'
+recognition_topic = 'recognition'
+current_view_topic = 'current_view'
 client_id = f'python-mqtt-{random.randint(0, 100)}'
 
 # mqtt_host = 'broker.emqx.io'
@@ -35,9 +36,9 @@ def connect_mqtt() -> mqtt:
 
 def subscribe(client: mqtt):
     def on_message(client, userdata, msg):
-        if msg.topic == topic:
+        if msg.topic == recognition_topic:
             str_data = str(msg.payload.decode('UTF-8'))
-            print(msg.topic + " " + str_data)
+            # print(msg.topic + " " + str_data)
             data = json.loads(str_data)
             jpg_as_text = data['image']
             jpg_original = base64.b64decode(jpg_as_text)
@@ -52,7 +53,6 @@ def subscribe(client: mqtt):
 
                 # Рисуем метку с именем
                 font = cv2.FONT_HERSHEY_COMPLEX
-                print(name)
                 cv2.putText(image_buffer, name, (coordinates['left'] + 6, coordinates['bottom'] - 6), font, 1.0, (255, 255, 255), 1)
 
 
@@ -61,8 +61,11 @@ def subscribe(client: mqtt):
             # Для выхода нажать 'q'
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 return
+        elif msg.topic == current_view_topic:
+            print("CURRENT VIEW!!!!")
 
-    client.subscribe(topic)
+    client.subscribe(recognition_topic)
+    client.subscribe(current_view_topic)
     client.on_message = on_message
 
 

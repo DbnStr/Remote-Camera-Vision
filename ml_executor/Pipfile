@@ -13,6 +13,7 @@ imutils = "*"
 mqtt = "*"
 paho-mqtt = "*"
 matplotlib = "*"
+asyncio = "*"
 
 [dev-packages]
 

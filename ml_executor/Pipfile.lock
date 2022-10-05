@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "fd59a16b49ad7cdc2f864711794ab6364b9501531b2a36d1aff86dc5af31d3e1"
+            "sha256": "50b1a6b715344b0950aa60da23d01ef2fb314b75864b42b0aa6d96e494cb0974"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,16 @@
         ]
     },
     "default": {
+        "asyncio": {
+            "hashes": [
+                "sha256:83360ff8bc97980e4ff25c964c7bd3923d333d177aa4f7fb736b019f26c7cb41",
+                "sha256:b62c9157d36187eca799c378e572c969f0da87cd5fc42ca372d92cdb06e7e1de",
+                "sha256:c46a87b48213d7464f22d9a497b9eef8c1928b68320a2fa94240f969f6fec08c",
+                "sha256:c4d18b22701821de07bd6aea8b53d21449ec0ec5680645e5317062ea21817d2d"
+            ],
+            "index": "pypi",
+            "version": "==3.4.3"
+        },
         "click": {
             "hashes": [
                 "sha256:7682dc8afb30297001674575ea00d1814d808d6a36af415a82bd481d37ba7b8e",
@@ -152,11 +162,11 @@
         },
         "fonttools": {
             "hashes": [
-                "sha256:88d48ef24486137c864dc56707b4b54ef8a97ab9162c2721ec61434baf1c4d13",
-                "sha256:b6d86ffd0a5f83d3da6a34d5f99a90398638e423cd6a8d93c5808af703432c7f"
+                "sha256:86918c150c6412798e15a0de6c3e0d061ddefddd00f97b4f7b43dfa867ad315e",
+                "sha256:afae1b39555f9c3f0ad1f0f1daf678e5ad157e38c8842ecb567951bf1a9b9fd7"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==4.37.2"
+            "version": "==4.37.4"
         },
         "imutils": {
             "hashes": [
