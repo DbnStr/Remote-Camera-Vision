@@ -28,7 +28,7 @@
 
 ## Архитектура компонента ML Executor
 
-![architecture](https://user-images.githubusercontent.com/67962930/194320467-d217f3dc-02f0-42d2-9522-e5e8abe2a6c7.png)
+![Снимок экрана 2022-10-06 в 17 49 32](https://user-images.githubusercontent.com/67962930/194345145-fc97ea1d-8823-4ae3-8eeb-38c5fd5eceb9.png)
 
 ## Настройка
 
