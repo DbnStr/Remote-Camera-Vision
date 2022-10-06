@@ -15,7 +15,7 @@
 
 ## Концептуальная архитектура
 
-![image](https://user-images.githubusercontent.com/67962930/190469174-c26ffc86-4a3a-4b09-90b0-8eecc063284b.png)
+![Снимок экрана 2022-10-06 в 17 49 32](https://user-images.githubusercontent.com/67962930/194345145-fc97ea1d-8823-4ae3-8eeb-38c5fd5eceb9.png)
 
 Во взаимодействии участвуют следующие акторы
 * Web-Client. Представляет собой камеру, у которой есть модуль для выхода в интернет. При взаимодействии с ML Executor играет роль веб клиента. Его задачей является передача видеопотока с камеры в ML Executor.
@@ -28,7 +28,7 @@
 
 ## Архитектура компонента ML Executor
 
-![Снимок экрана 2022-10-06 в 17 49 32](https://user-images.githubusercontent.com/67962930/194345145-fc97ea1d-8823-4ae3-8eeb-38c5fd5eceb9.png)
+![architecture](https://user-images.githubusercontent.com/67962930/194345414-bcdc3b10-b5df-4d33-864c-19daf1a37a44.png)
 
 ## Настройка
 
