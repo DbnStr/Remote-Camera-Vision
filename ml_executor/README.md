@@ -60,6 +60,5 @@ MobileApp отправляет сообщение с набором фото и 
     person_photo(str), 
     ...
   ],
-  "time": cur_datetime(str)
 }
 ```
