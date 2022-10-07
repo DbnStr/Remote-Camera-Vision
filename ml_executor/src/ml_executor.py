@@ -8,7 +8,7 @@ import cv2
 import face_recognition
 from imutils import paths
 
-from src.db.fake_db import DataBase
+from db.fake_db import DataBase
 
 cascPathface = os.path.dirname(
     cv2.__file__) + "/data/haarcascade_frontalface_alt2.xml"

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rcv_mobile_app/models/current_camera_model.dart';
+import 'package:rcv_mobile_app/screens/add_person_screen.dart';
 
 import '../constants.dart';
 import '../services/MQTT.dart';
@@ -103,6 +104,26 @@ class _CameraScreenState extends State<CameraScreen> {
                         maximumSize: MaterialStateProperty.all(Size(200, 50)),
                         textStyle: MaterialStateProperty.all(TextStyle(fontSize: 14))),
                   )),
+                    Expanded(child: ElevatedButton(
+                      child: Text('Добавить человека'),
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          // mqttBrowserManager.publishMessage(
+                          //     pubTopic, "Increment button pushed ${_counter.toString()} times.");
+                          return ChangeNotifierProvider(
+                              create: (_) => CameraModel(),
+                              child: AddPersonScreen());
+                        }));
+                      },
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(Color(0xFFB9FC9D)),
+                          foregroundColor: MaterialStateProperty.all(Color(0xFF67CF3C)),
+                          padding: MaterialStateProperty.all(EdgeInsets.all(10)),
+                          minimumSize: MaterialStateProperty.all(Size(200, 50)),
+                          maximumSize: MaterialStateProperty.all(Size(200, 50)),
+                          textStyle: MaterialStateProperty.all(TextStyle(fontSize: 14))),
+                    ),
+                  ),
                 ],
               ),
             ),

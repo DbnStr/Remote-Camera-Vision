@@ -6,9 +6,9 @@ import logging
 
 import cv2
 
-from src.ml_executor import MLExecutor
-from src.mqtt_publisher import MQTTPublisher
-from src.timer import Timer
+from ml_executor import MLExecutor
+from mqtt_publisher import MQTTPublisher
+from timer import Timer
 
 
 class CameraExecutor:
@@ -20,7 +20,7 @@ class CameraExecutor:
 
     def __init__(self):
         self.ml_executor = MLExecutor()
-        self.ml_executor.load_data()
+        # self.ml_executor.load_data()
 
         self.mqtt_publisher = MQTTPublisher()
         self.mqtt_publisher.run()

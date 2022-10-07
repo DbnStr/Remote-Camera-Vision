@@ -3,4 +3,5 @@ class Constants {
   static const int MQTT_PORT = 1883;
   static const String RECOGNITION_TOPIC_NAME = 'recognition';
   static const String CURENT_VIEW_TOPIC_NAME = 'current_view';
+  static const String NEW_PERSON_TOPIC_NAME = 'new_person_data';
 }
