@@ -5,6 +5,8 @@ import 'package:rcv_mobile_app/ui/add_person_screen/widgets/buttons_widget.dart'
 import 'package:rcv_mobile_app/ui/add_person_screen/widgets/photos_carousel_slider_widget.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../constants/colors.dart';
+import '../../constants/text.dart';
 import 'add_person_screen_viewmodel.dart';
 
 class AddPersonScreenView extends StatelessWidget {
@@ -16,10 +18,10 @@ class AddPersonScreenView extends StatelessWidget {
       viewModelBuilder: () => AddPersonScreenViewModel(),
       onModelReady: (viewModel) => viewModel.initialise(context),
       builder: (context, viewModel, _) => Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: ColorTheme.primaryBg,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: Colors.white,
+          backgroundColor: ColorTheme.primary,
           elevation: 0,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,8 +33,8 @@ class AddPersonScreenView extends StatelessWidget {
           actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.close),
-              color: Colors.black,
-              tooltip: 'Close',
+              color: ColorTheme.primaryText,
+              tooltip: TextConstants.CLOSE,
               onPressed: () => {Navigator.of(context).pop()},
             ),
           ],

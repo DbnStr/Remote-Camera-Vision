@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:rcv_mobile_app/constants/colors.dart';
 import 'package:stacked/stacked.dart';
 
 import '../notifications_screen_viewmodel.dart';
 import 'notification_image_canvas_widget.dart';
+import '../../../constants/colors.dart';
 
 class NotificationsList extends ViewModelWidget<NotificationsScreenViewModel> {
   @override
@@ -26,8 +28,8 @@ class NotificationsList extends ViewModelWidget<NotificationsScreenViewModel> {
                       children: [
                         Container(
                           width: double.infinity,
-                          height: 250,
-                          margin: const EdgeInsets.only(bottom: 40),
+                          height: 236,
+                          margin: const EdgeInsets.only(bottom: 54),
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(5),
@@ -40,26 +42,35 @@ class NotificationsList extends ViewModelWidget<NotificationsScreenViewModel> {
                               size: Size(
                                   MediaQuery.of(context).size.width * 0.96,
                                   MediaQuery.of(context).size.height * 0.5),
-                              painter:
-                                  NotificationImageCanvas(image: viewModel.image, bbox: viewModel.bbox),
+                              painter: NotificationImageCanvas(
+                                  image: viewModel.image, bbox: viewModel.bbox),
                             ),
                           ),
                         ),
                         Container(
-                            height: 40,
+                            height: 54,
                             alignment: Alignment.centerLeft,
-                            padding: const EdgeInsets.all(12),
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.only(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.only(
                                   bottomLeft: Radius.circular(5),
                                   bottomRight: Radius.circular(5)),
-                              color: Colors.white,
+                              color: ColorTheme.primaryBg,
                             ),
-                            child: Text(item.name,
-                                style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black))),
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('00.00.0000',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: ColorTheme.secondaryText)),
+                                  Text(item.name,
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: ColorTheme.primaryText))
+                                ])),
                       ]));
             }),
       ],

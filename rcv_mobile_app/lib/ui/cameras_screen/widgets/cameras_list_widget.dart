@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../constants/colors.dart';
 import '../cameras_screen_viewmodel.dart';
 
 class CamerasList extends ViewModelWidget<CamerasScreenViewModel> {
@@ -42,17 +43,17 @@ class CamerasList extends ViewModelWidget<CamerasScreenViewModel> {
                             height: 60,
                             alignment: Alignment.centerLeft,
                             padding: const EdgeInsets.all(12),
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.only(
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.only(
                                   bottomLeft: Radius.circular(5),
                                   bottomRight: Radius.circular(5)),
-                              color: Colors.white,
+                              color: ColorTheme.primaryBg,
                             ),
                             child: Text(item.name,
-                                style: const TextStyle(
+                                style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.black))),
+                                    color: ColorTheme.primaryText))),
                         Positioned.fill(
                             child: Material(
                                 color: Colors.transparent,

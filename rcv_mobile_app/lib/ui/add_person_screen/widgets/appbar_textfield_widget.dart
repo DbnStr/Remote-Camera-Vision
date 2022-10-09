@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rcv_mobile_app/constants/colors.dart';
+import 'package:rcv_mobile_app/constants/text.dart';
 import 'package:stacked/stacked.dart';
 
 import '../add_person_screen_viewmodel.dart';
@@ -9,7 +11,7 @@ class AppbarTextfield extends ViewModelWidget<AddPersonScreenViewModel> {
     return Expanded(
       flex: 5,
       child: TextField(
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           border: InputBorder.none,
           focusedBorder: InputBorder.none,
           enabledBorder: InputBorder.none,
@@ -18,21 +20,21 @@ class AppbarTextfield extends ViewModelWidget<AddPersonScreenViewModel> {
           contentPadding: EdgeInsets.all(0),
           counter: null,
           counterText: "",
-          hintText: "Name",
+          hintText: TextConstants.NAME,
           hintStyle: TextStyle(
             fontSize: 21,
             fontWeight: FontWeight.bold,
             height: 1.5,
-            color: Colors.grey,
+            color: ColorTheme.secondaryText,
           ),
         ),
         maxLength: 31,
         maxLines: 1,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 21,
           fontWeight: FontWeight.bold,
           height: 1.5,
-          color: Colors.black,
+          color: ColorTheme.primaryText,
         ),
         textCapitalization: TextCapitalization.words,
         controller: viewModel.nameController,

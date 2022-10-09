@@ -12,6 +12,7 @@ class CamerasScreenViewModel extends ChangeNotifier {
   void initialise() {
     cameras.add(Camera("Архангельская область, город Балашиха, пр. Домодедовская, 56"));
     cameras.add(Camera("Томская область, город Егорьевск, спуск Гагарина, 93"));
+    cameras.add(Camera("Томская область, город Егорьевск, спуск Гагарина, 93, город Егорьевск, спуск Гагарина, 93"));
     cameras.add(Camera("ул. Ломоносова, 01"));
 
     notifyListeners();

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:rcv_mobile_app/constants/colors.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../constants/text.dart';
 import '../add_person_screen_viewmodel.dart';
 
 class Buttons extends ViewModelWidget<AddPersonScreenViewModel> {
@@ -16,10 +18,10 @@ class Buttons extends ViewModelWidget<AddPersonScreenViewModel> {
           },
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 50),
-            backgroundColor: Colors.green,
+            backgroundColor: ColorTheme.primaryText,
             elevation: 2,
           ),
-          child: const Text('Выбрать фото'),
+          child: Text(TextConstants.SELECT_PHOTO.toUpperCase()),
         ),
       ),
       Padding(
@@ -30,10 +32,10 @@ class Buttons extends ViewModelWidget<AddPersonScreenViewModel> {
           },
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 50),
-            backgroundColor: Colors.green,
+            backgroundColor: ColorTheme.primaryText,
             elevation: 2,
           ),
-          child: const Text('Добавить'),
+          child: Text(TextConstants.ADD.toUpperCase()),
         ),
       ),
     ]);
