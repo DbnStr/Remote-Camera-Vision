@@ -26,12 +26,12 @@ class SingleCameraScreenView extends StatelessWidget {
           elevation: 0,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Expanded(
                 flex: 5,
                 child: Text(
-                  'Камера',
-                  style: TextStyle(
+                  'Камера $index',
+                  style: const TextStyle(
                     fontSize: 21,
                     fontWeight: FontWeight.bold,
                     height: 1.5,
