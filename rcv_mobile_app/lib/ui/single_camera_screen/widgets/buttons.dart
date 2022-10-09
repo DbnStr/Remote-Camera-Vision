@@ -50,6 +50,7 @@ class Buttons extends ViewModelWidget<SingleCameraScreenViewModel> {
                 child: ElevatedButton(
                   onPressed: () {
                     print('Notifications');
+                    viewModel.openNotifications(context);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blueGrey,
