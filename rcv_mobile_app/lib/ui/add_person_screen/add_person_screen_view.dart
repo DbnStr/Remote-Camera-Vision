@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:rcv_mobile_app/ui/single_camera_screen/single_camera_screen_viewmodel.dart';
-import 'package:rcv_mobile_app/ui/single_camera_screen/widgets/buttons_widget.dart';
-import 'package:rcv_mobile_app/ui/single_camera_screen/widgets/camera_widget.dart';
+import 'package:rcv_mobile_app/ui/add_person_screen/widgets/appbar_textfield_widget.dart';
+import 'package:rcv_mobile_app/ui/add_person_screen/widgets/buttons_widget.dart';
+import 'package:rcv_mobile_app/ui/add_person_screen/widgets/photos_carousel_slider_widget.dart';
 import 'package:stacked/stacked.dart';
 
-class SingleCameraScreenView extends StatelessWidget {
-  final int index;
-  final String cameraName;
+import 'add_person_screen_viewmodel.dart';
 
-  const SingleCameraScreenView(
-      {Key? key, required this.index, required this.cameraName})
-      : super(key: key);
+class AddPersonScreenView extends StatelessWidget {
+  const AddPersonScreenView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<SingleCameraScreenViewModel>.nonReactive(
-      viewModelBuilder: () => SingleCameraScreenViewModel(),
+    return ViewModelBuilder<AddPersonScreenViewModel>.nonReactive(
+      viewModelBuilder: () => AddPersonScreenViewModel(),
       onModelReady: (viewModel) => viewModel.initialise(context),
       builder: (context, viewModel, _) => Scaffold(
         backgroundColor: Colors.white,
@@ -27,18 +24,7 @@ class SingleCameraScreenView extends StatelessWidget {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                flex: 5,
-                child: Text(
-                  cameraName.toUpperCase(),
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: Colors.black
-                  ),
-                  maxLines: 2,
-                  textAlign: TextAlign.left,
-                ),
-              ),
+              AppbarTextfield(),
             ],
           ),
           systemOverlayStyle: SystemUiOverlayStyle.light,
@@ -60,7 +46,7 @@ class SingleCameraScreenView extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
-                  Camera(),
+                  PhotosCarouselSlider(),
                   Buttons(),
                 ],
               ),

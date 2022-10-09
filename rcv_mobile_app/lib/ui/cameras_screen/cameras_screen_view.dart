@@ -13,7 +13,18 @@ class CamerasScreenView extends StatelessWidget {
       viewModelBuilder: () => CamerasScreenViewModel(),
       onModelReady: (viewModel) => viewModel.initialise(),
       builder: (context, viewModel, _) => Scaffold(
-        appBar: AppBar(elevation: 2, title: const Text("Cameras")),
+        appBar: AppBar(
+            elevation: 2,
+            title: const Text("Cameras"),
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.add_reaction_outlined),
+                tooltip: 'Add person',
+                onPressed: () {
+                  viewModel.openPersonAdding(context);
+                },
+              ),
+            ]),
         body: Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
           child: CamerasList(),

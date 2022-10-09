@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rcv_mobile_app/ui/add_person_screen/add_person_screen_view.dart';
 
 import '../../camera.dart';
 import '../../models/current_camera_model.dart';
@@ -21,6 +22,14 @@ class CamerasScreenViewModel extends ChangeNotifier {
       return ChangeNotifierProvider(
           create: (_) => CameraModel(),
           child: SingleCameraScreenView(index: index, cameraName: name));
+    }));
+  }
+
+  void openPersonAdding(context) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return ChangeNotifierProvider(
+          create: (_) => CameraModel(),
+          child: AddPersonScreenView());
     }));
   }
 }
