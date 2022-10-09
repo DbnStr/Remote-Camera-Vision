@@ -12,7 +12,7 @@ class Camera extends ViewModelWidget<SingleCameraScreenViewModel> {
           padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
           child: Container(
             width: MediaQuery.of(context).size.width * 0.96,
-            height: MediaQuery.of(context).size.height - 215,
+            height: MediaQuery.of(context).size.height - 250,
             child: viewModel.model.currentView,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(5)),

@@ -26,14 +26,16 @@ class SingleCameraScreenView extends StatelessWidget {
           elevation: 0,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+            children: const [
               Expanded(
                 flex: 5,
                 child: Text(
-                  cameraName.toUpperCase(),
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: Colors.black
+                  'Камера',
+                  style: TextStyle(
+                    fontSize: 21,
+                    fontWeight: FontWeight.bold,
+                    height: 1.5,
+                    color: Colors.black,
                   ),
                   maxLines: 2,
                   textAlign: TextAlign.left,
@@ -61,6 +63,17 @@ class SingleCameraScreenView extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Camera(),
+                  Text(
+                    cameraName.toUpperCase(),
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      height: 1.5,
+                      color: Colors.black,
+                    ),
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                  ),
                   Buttons(),
                 ],
               ),
