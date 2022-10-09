@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
+import '../../../constants/colors.dart';
+
 class NotificationImageCanvas extends CustomPainter {
   NotificationImageCanvas({required this.image, this.bbox});
 
@@ -37,8 +39,8 @@ class NotificationImageCanvas extends CustomPainter {
       var offsetY = (outputSize.height - destinationSize.height) / 2;
 
       var framePaint = Paint()
-        ..color = Colors.cyan
-        ..strokeWidth = 1;
+        ..color = ColorTheme.accent
+        ..strokeWidth = 2;
 
       var leftUp = Offset(bbox![0][0] * scaleX + offsetX, bbox![1][0] * scaleY + offsetY);
       var leftDown = Offset(bbox![0][0] * scaleX + offsetX, bbox![1][1] * scaleY + offsetY);

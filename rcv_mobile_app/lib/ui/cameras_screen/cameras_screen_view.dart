@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:rcv_mobile_app/ui/cameras_screen/widgets/cameras_list_widget.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../constants/colors.dart';
+import '../../constants/text.dart';
 import 'cameras_screen_viewmodel.dart';
 
 class CamerasScreenView extends StatelessWidget {
@@ -13,20 +15,33 @@ class CamerasScreenView extends StatelessWidget {
       viewModelBuilder: () => CamerasScreenViewModel(),
       onModelReady: (viewModel) => viewModel.initialise(),
       builder: (context, viewModel, _) => Scaffold(
+        backgroundColor: ColorTheme.primaryBg,
         appBar: AppBar(
-            elevation: 2,
-            title: const Text("Cameras"),
+            elevation: 0,
+            backgroundColor: ColorTheme.primary,
+            title: Text(
+              TextConstants.CAMERAS_SCREEN_TITLE,
+              style: TextStyle(
+                fontSize: 21,
+                fontWeight: FontWeight.bold,
+                height: 1.5,
+                color: ColorTheme.primaryText,
+              ),
+              maxLines: 1,
+              textAlign: TextAlign.left,
+            ),
             actions: <Widget>[
               IconButton(
-                icon: const Icon(Icons.add_reaction_outlined),
-                tooltip: 'Add person',
+                icon: const Icon(Icons.add_a_photo_outlined),
+                tooltip: TextConstants.ADD_PERSON_BUTTON,
+                color: ColorTheme.primaryText,
                 onPressed: () {
                   viewModel.openPersonAdding(context);
                 },
               ),
             ]),
         body: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+          padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 4),
           child: CamerasList(),
         ),
       ),
