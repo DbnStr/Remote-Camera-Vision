@@ -30,7 +30,7 @@ class SingleCameraScreenView extends StatelessWidget {
               Expanded(
                 flex: 5,
                 child: Text(
-                  'Камера $index',
+                  'Камера ${index+1}',
                   style: const TextStyle(
                     fontSize: 21,
                     fontWeight: FontWeight.bold,
