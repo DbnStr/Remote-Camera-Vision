@@ -17,7 +17,7 @@ class CamerasList extends ViewModelWidget<CamerasScreenViewModel> {
                   elevation: 2,
                   margin: const EdgeInsets.all(4),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(5),
                   ),
                   child: Stack(
                       fit: StackFit.loose,
@@ -33,8 +33,8 @@ class CamerasList extends ViewModelWidget<CamerasScreenViewModel> {
                                     "https://yandex-images.clstorage.net/5DjV0L235/3c2c1fyMA/-Ukf_3vh1HXW_AdIF4vjvmL-9GE3Ynw9zVBKkoPDwFKm2sop6OmlaL6n3REi96LnB_151N8OkFUE30zEw7N_XZxwWv5Lja1J_vgHRCOvj5p-0tRdF3IsIcQxFv6Ku5h6q96DRLgYCKVbfnTkszMqVv79cKGrAuVgCcehZPY-rhRtWbOfR5lNierkGmTjHxe-tldIHZ8HKKQl_NPWVpOxctcWgr3gSLgp86YEyE8fChpexUxVK5IMnPE_PUE2hjqYPfW_E7uxJRGyIJakzwfT8kILxOHrfxQMHXAz2lKLZZ73imKdKIxkxRPmYAzji5aaBpVc_ScaZPTpNwX5ruKOhFHZU6cvtbltxmROzK_vDyJug_RxN_t0QHkQHzaSOz1-n_4KvVQ4uC1nRliAV4O61nqluNX7OmR8JZf1FUpSXgAVNQsnGzXx9T5wenhbE4v64tfweXMP3KwFuMMGroORJpP68llYKDRhx1YQHP8_BkoWvVidI46cjBGXza3yNgrk9QlXZzOFRRXOQBYQp0sX4kr3AI0Lh3C8dTwP7jqL9SJfOv4NHLxsLVPaTGi7s-I64iGQiR9ytBxVW1mtblJKfPHNX7dLgRWNXvQKxMMzC0byf_z9bztQ2K3wezqmR81aW_5apexUrOlbSqDc00_e3kqFXDFr2jBwDZ85iW6qRty5KfsH740drSog-uwvB7sqIqPQ-YODkJzZyJOi0tMFEpve1jXUuHytHzbIOEsPLv4muezFh8rM3N0nWTEmssKc3Xm3g3ex0cFmQPLQ_8vPilYvkEmbL2AoYdhPqlpDFbInfgqt8OwsSe-2OBRTDzJGDgkcJffCvPwVVzlN4va6tLG9RxOrjS3JoqCapEM_g27uV9QJs4NoPAVcw1Ii04G6GwZOiUx4MIHDOpyMQz--rh6hED1fUrhMVbdRjUYCPhRFRXtPK7XVFXrMrrSnv88yKtOQgcN3ZER97OM-rkcU"),
                                 fit: BoxFit.contain),
                             borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(15),
-                                topRight: Radius.circular(15)),
+                                topLeft: Radius.circular(5),
+                                topRight: Radius.circular(5)),
                             color: Colors.black,
                           ),
                         ),
@@ -44,8 +44,8 @@ class CamerasList extends ViewModelWidget<CamerasScreenViewModel> {
                             padding: const EdgeInsets.all(12),
                             decoration: const BoxDecoration(
                               borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(15),
-                                  bottomRight: Radius.circular(15)),
+                                  bottomLeft: Radius.circular(5),
+                                  bottomRight: Radius.circular(5)),
                               color: Colors.white,
                             ),
                             child: Text(item.name,
@@ -57,7 +57,7 @@ class CamerasList extends ViewModelWidget<CamerasScreenViewModel> {
                             child: Material(
                                 color: Colors.transparent,
                                 child: InkWell(
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius: BorderRadius.circular(5),
                                   splashColor: Colors.grey.withAlpha(30),
                                   onTap: () => viewModel.openCamera(context, index, item.name),
                                 ))),
