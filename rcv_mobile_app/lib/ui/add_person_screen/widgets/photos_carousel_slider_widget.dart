@@ -12,27 +12,34 @@ class PhotosCarouselSlider extends ViewModelWidget<AddPersonScreenViewModel> {
   Widget build(BuildContext context, AddPersonScreenViewModel viewModel) {
     return Container(
         decoration: BoxDecoration(
-            color: ColorTheme.secondaryText, borderRadius: BorderRadius.circular(5)),
+          color: ColorTheme.secondaryText,
+          borderRadius: BorderRadius.circular(5),
+          image: const DecorationImage(
+            image: AssetImage('assets/images/no_image.png'),
+            fit: BoxFit.none,
+          ),
+        ),
         child: CarouselSlider(
-      options: CarouselOptions(
-        viewportFraction: 1,
-        autoPlay: true,
-        height: MediaQuery.of(context).size.height - 205,
-        enableInfiniteScroll: false,
-      ),
-      items: viewModel.imageFileList!.map((i) {
-        return Builder(
-          builder: (BuildContext context) {
-            return Container(
-              width: MediaQuery.of(context).size.width * 0.96,
-              margin: const EdgeInsets.symmetric(horizontal: 0),
-              decoration: BoxDecoration(
-                  color: Colors.black, borderRadius: BorderRadius.circular(5)),
-              child: Image.file(File(i.path)),
+          options: CarouselOptions(
+            viewportFraction: 1,
+            autoPlay: true,
+            height: MediaQuery.of(context).size.height - 205,
+            enableInfiniteScroll: false,
+          ),
+          items: viewModel.imageFileList!.map((i) {
+            return Builder(
+              builder: (BuildContext context) {
+                return Container(
+                  width: MediaQuery.of(context).size.width * 0.96,
+                  margin: const EdgeInsets.symmetric(horizontal: 0),
+                  decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Image.file(File(i.path)),
+                );
+              },
             );
-          },
-        );
-      }).toList(),
-    ));
+          }).toList(),
+        ));
   }
 }

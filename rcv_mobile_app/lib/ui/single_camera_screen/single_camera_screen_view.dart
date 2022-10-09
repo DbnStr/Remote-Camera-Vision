@@ -31,17 +31,20 @@ class SingleCameraScreenView extends StatelessWidget {
             children: [
               Expanded(
                 flex: 5,
-                child: Text(
-                  '${TextConstants.SINGLE_CAMERA_SCREEN_TITLE} ${index + 1}',
-                  style: TextStyle(
-                    fontSize: 21,
-                    fontWeight: FontWeight.bold,
-                    height: 1.5,
-                    color: ColorTheme.primaryText,
-                  ),
-                  maxLines: 2,
-                  textAlign: TextAlign.left,
-                ),
+                child:
+                SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Text(
+                      cameraName,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        height: 1.5,
+                        color: ColorTheme.primaryText,
+                      ),
+                      maxLines: 1,
+                      textAlign: TextAlign.left,
+                    )),
               ),
             ],
           ),
@@ -65,25 +68,6 @@ class SingleCameraScreenView extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Camera(),
-                  Container(
-                      height: 44,
-                      child: Column(children: [
-                        Divider(),
-                        SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Text(
-                              cameraName,
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                height: 1,
-                                color: ColorTheme.primaryText,
-                              ),
-                              maxLines: 1,
-                              textAlign: TextAlign.center,
-                            )),
-                        Divider(),
-                      ])),
                   Buttons(),
                 ],
               ),
