@@ -35,7 +35,7 @@ topic = 'recognition' </br>
     {
       "id": person_id(str), //-1 если личность человека не установлена, иначе uuid4
       "name": person_name(str), // "Unknown" если личность человека не установлена
-      "coordinates": {
+      "coordinates": { //координаты для отрисовки прямоугольник, внутри которого располагается лицо человека
         "top": top(int), 
         "right": right(int), 
         "bottom": bottom(int), 
@@ -60,5 +60,39 @@ MobileApp отправляет сообщение с набором фото и 
     person_photo(str), 
     ...
   ],
+}
+```
+
+## Хранение данных
+
+Данные хранятся в формате JSON.
+
+### Данные о камере
+
+Данные о камере хранятся в следующем формате:
+```
+{
+  "currentView": image_encoded(str), //содержит последнее изображение с камеры, изображение кодируется с помощью метода base64
+  "currentViewDatetime": cur_datetime(str),
+  "notifications": [
+    {
+      "image": image_encoded(str), //Содержит фото с камеры с изображением лиц, изображение кодируется с помощью метода base64
+      "persons": [
+        {
+          "id": person_id(str), //-1 если личность человека не установлена, иначе uuid4
+          "name": person_name(str), // "Unknown" если личность человека не установлена, иначе имя человека
+          "coordinates": { //координаты для отрисовки прямоугольник, внутри которого располагается лицо человека
+            "top": top(int), 
+            "right": right(int), 
+            "bottom": bottom(int), 
+            "left": left(int)
+          }
+        },
+        ...
+      ],
+      "dateTime": cur_datetime(str) //время и дата создания кадра
+    }
+    ...
+  ]
 }
 ```
