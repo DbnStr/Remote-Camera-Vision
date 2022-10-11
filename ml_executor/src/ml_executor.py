@@ -59,7 +59,7 @@ class MLExecutor:
         for image_dir in dirs:
             image_subpaths = list(paths.list_images(image_dir))
             person_name = image_dir.split("/")[-1]
-            id = uuid.uuid4().int
+            id = str(uuid.uuid4())
             self.db.add_person(id, person_name)
             for (j, image_subpath) in enumerate(image_subpaths):
 

@@ -1,11 +1,14 @@
+import asyncio
+import base64
 import datetime
 import json
 import logging
 
 import cv2
 
-from src.ml_executor import MLExecutor, read_test_set
+from src.ml_executor import MLExecutor
 from src.mqtt_publisher import MQTTPublisher
+from src.timer import Timer
 
 
 class CameraExecutor:
@@ -17,16 +20,29 @@ class CameraExecutor:
 
     def __init__(self):
         self.ml_executor = MLExecutor()
-        # self.ml_executor.load_data()
+        self.ml_executor.load_data()
 
         self.mqtt_publisher = MQTTPublisher()
         self.mqtt_publisher.run()
+
+        self.screen_timer = Timer(2, self.make_screen)
 
         self.video_capture = cv2.VideoCapture(0)
 
         self.logger = logging.getLogger('ml_executor.{}'.format(__name__))
 
         self.last_recognized_persons = []
+
+    def run(self, loop=None):
+        if loop is None:
+            loop = asyncio.get_running_loop()
+        self.screen_timer.start(loop)
+        loop.run_until_complete(self.run_recognition())
+        # asyncio.ensure_future(self.run_recognition())
+        #
+        # # суррогат сервера принимающего соединения
+        # while True:
+        #     await asyncio.sleep(1)
 
     def is_there_new_persons(self, new_names) -> bool:
         """
@@ -41,7 +57,7 @@ class CameraExecutor:
                     return True
             return False
 
-    def run(self):
+    async def run_recognition(self):
         """
         Блокирующая функция
         Запускает процесс обработки информации с камеры и отправки данных брокеру
@@ -68,7 +84,21 @@ class CameraExecutor:
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
+            await asyncio.sleep(0.5)
+
         # When everything is done, release the capture
         self.video_capture.release()
         self.mqtt_publisher.stop()
         cv2.destroyAllWindows()
+
+    def make_screen(self):
+        """
+        Отправляет текущее состояние камеры пользователю
+        """
+        ret, frame = self.video_capture.read()
+        jpg_as_text = base64.b64encode(cv2.imencode('.jpg', frame)[1]).decode()
+        print("make screen")
+        self.mqtt_publisher.send("current_view", {
+            'image': jpg_as_text,
+            'time': str(datetime.datetime.now())
+        })
