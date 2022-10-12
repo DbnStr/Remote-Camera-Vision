@@ -178,29 +178,31 @@ class MQTT {
     builder.clear();
   }
 
-  // Тест публикации уведомления о том, что кто-то пришел
+  // Тест публикации уведомления о добавлении нового человека
   Future<void> publishNotificationPerson(personName, personPhoto) async {
     final builder = MqttClientPayloadBuilder();
 
     String dateTime = DateTime.now().toString();
-    String path = 'assets/images/sample2.jpg';
-    final image = await rootBundle.load(path);
-    Uint8List imageBytes = image.buffer.asUint8List(image.offsetInBytes, image.lengthInBytes);
-    String imageString = base64.encode(imageBytes);
+    var photos = [];
+    for (var photo in personPhoto) {
+      List<int> imageBytes = await photo.readAsBytes();
+      String imageString = base64.encode(imageBytes);
+      photos.add(imageString);
+    }
 
-    // builder.addString(
-    //     json.encode(
-    //         {
-    //           "name": personName,
-    //           "photos": personPhoto,
-    //           "time": dateTime,
-    //         }
-    //     )
-    // );
+    builder.addString(
+        json.encode(
+            {
+              "name": personName,
+              "photos": photos,
+              "time": dateTime,
+            }
+        )
+    );
 
 
     _client.publishMessage(
-        Constants.RECOGNITION_TOPIC_NAME, MqttQos.exactlyOnce, builder.payload!);
+        Constants.NEW_PERSON_TOPIC_NAME, MqttQos.exactlyOnce, builder.payload!);
 
     log("MQTT :: publish success");
 
