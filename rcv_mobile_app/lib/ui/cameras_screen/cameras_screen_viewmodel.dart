@@ -21,7 +21,7 @@ class CamerasScreenViewModel extends ChangeNotifier {
   void openCamera(context, index, name) {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return ChangeNotifierProvider(
-          create: (_) => CameraModel(),
+          create: (_) => CameraModel('defaultCamera', 'Москва'),
           child: SingleCameraScreenView(index: index, cameraName: name));
     }));
   }
@@ -29,7 +29,7 @@ class CamerasScreenViewModel extends ChangeNotifier {
   void openPersonAdding(context) {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return ChangeNotifierProvider(
-          create: (_) => CameraModel(),
+          create: (_) => CameraModel('defaultCamera', 'Москва'),
           child: AddPersonScreenView());
     }));
   }

@@ -6,15 +6,32 @@ import 'package:rcv_mobile_app/models/camera_notification_model.dart';
 // 2. Информация о уведомлениях (кто пришел)
 class CameraModel with ChangeNotifier {
 
-  Image currentView = Image.asset('assets/images/sample1.jpg',
-    height: 400,
-    width: 400,
-  );
+  final String id;
+  late final String? location;
+  String? currentView;
   DateTime? currentViewDateTime;
-  List<CameraNotification> notifications = <CameraNotification>[];
+  List<CameraNotification> notifications = [];
 
 
-  void setView(Image view, DateTime viewDateTime) {
+  CameraModel(this.id, this.location);
+
+  CameraModel.fromJson(this.id, Map<String, dynamic> json) {
+    location = json['location'] as String;
+    currentView = json['currentView'] as String;
+    currentViewDateTime = json['currentViewDateTime'] as DateTime;
+    notifications = (json['notifications'] as List).cast<CameraNotification>();
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'location': location,
+      'currentView': currentView,
+      'currentViewDateTime': currentViewDateTime,
+      'notifications': notifications.map((n) => n.toJson()).toList()
+    };
+  }
+
+  void setView(String view, DateTime viewDateTime) {
     currentView = view;
     currentViewDateTime = viewDateTime;
     notifyListeners();

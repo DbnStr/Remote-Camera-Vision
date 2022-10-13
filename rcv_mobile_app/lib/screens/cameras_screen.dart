@@ -55,7 +55,7 @@ class _CamerasScreenState extends State<CamerasScreen> {
                   // mqttBrowserManager.publishMessage(
                   //     pubTopic, "Increment button pushed ${_counter.toString()} times.");
                   return ChangeNotifierProvider(
-                      create: (_) => CameraModel(),
+                      create: (_) => CameraModel('defaultCamera', 'Москва'),
                       child: CameraScreen(index: index, cameraName: _cameras[index].name));
                 }));
               });

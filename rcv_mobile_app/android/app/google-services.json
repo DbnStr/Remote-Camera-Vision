@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "612117612757",
+    "firebase_url": "https://remote-camera-vision-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "remote-camera-vision",
+    "storage_bucket": "remote-camera-vision.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:612117612757:android:5130cf41a3cc6589dfba5c",
+        "android_client_info": {
+          "package_name": "com.project.rcv_mobile_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "612117612757-v6q9cav9vkbcmtd7t8ec9dsd5kmtqav3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhaa9hqaj0adixXiF_Mq1b_Ixl2AYgdRA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "612117612757-v6q9cav9vkbcmtd7t8ec9dsd5kmtqav3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

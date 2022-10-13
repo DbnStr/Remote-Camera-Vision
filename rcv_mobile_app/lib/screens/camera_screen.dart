@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -74,7 +75,8 @@ class _CameraScreenState extends State<CameraScreen> {
               endIndent: 0,
               color: Colors.black,
             ),
-            model.currentView,
+            model.currentView != null ? Image.memory(base64Decode(model.currentView!))
+                : Image.asset('assets/images/sample1.jpg', height: 400, width: 400),
             ListTile(
               //contentPadding: EdgeInsets.all(<some value here>),//change for side padding
               title: Row(
