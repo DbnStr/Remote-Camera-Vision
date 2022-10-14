@@ -4,7 +4,6 @@ import json
 import random
 
 import cv2
-import matplotlib.pyplot as plt
 import numpy as np
 
 import paho.mqtt.client as mqtt
@@ -14,10 +13,11 @@ current_view_topic = 'current_view'
 client_id = f'python-mqtt-{random.randint(0, 100)}'
 
 # mqtt_host = 'broker.emqx.io'
-mqtt_host = 'localhost'
+mqtt_host = '194.87.232.100'
+# mqtt_host = 'localhost'
 mqtt_port = 1883
-username = 'emqx'
-password = 'public'
+username = 'root'
+password = '4o4dMWWwP2'
 
 
 def connect_mqtt() -> mqtt:
@@ -28,7 +28,7 @@ def connect_mqtt() -> mqtt:
             print("Failed to connect, return code {}\n".format(rc))
 
     client = mqtt.Client(client_id)
-    # client.username_pw_set(username, password)
+    client.username_pw_set(username, password)
     client.on_connect = on_connect
     client.connect(mqtt_host, mqtt_port)
     return client
@@ -38,7 +38,7 @@ def subscribe(client: mqtt):
     def on_message(client, userdata, msg):
         if msg.topic == recognition_topic:
             str_data = str(msg.payload.decode('UTF-8'))
-            # print(msg.topic + " " + str_data)
+            print(msg.topic + " " + str_data)
             data = json.loads(str_data)
             jpg_as_text = data['image']
             jpg_original = base64.b64decode(jpg_as_text)
