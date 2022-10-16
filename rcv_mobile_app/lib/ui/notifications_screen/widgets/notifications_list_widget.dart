@@ -71,6 +71,14 @@ class NotificationsList extends ViewModelWidget<NotificationsScreenViewModel> {
                                           fontWeight: FontWeight.bold,
                                           color: ColorTheme.primaryText))
                                 ])),
+                        Positioned.fill(
+                            child: Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(5),
+                                  splashColor: Colors.grey.withAlpha(30),
+                                  onTap: () => viewModel.openNotification(context),
+                                ))),
                       ]));
             }),
       ],

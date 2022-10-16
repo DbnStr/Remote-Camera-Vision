@@ -1,7 +1,7 @@
 import pickle
 import uuid
 
-from src.db.abstract_db import AbstractDataBase
+from db.abstract_db import AbstractDataBase
 
 
 class DataBase(AbstractDataBase):

@@ -25,6 +25,10 @@ class SingleCameraScreenViewModel extends ChangeNotifier {
     model = Provider.of<CameraModel>(context);
     mqtt.model = model;
 
+    model.addListener(() {
+      notifyListeners();
+    });
+
     notifyListeners();
   }
 

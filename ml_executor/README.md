@@ -2,7 +2,15 @@
 http://onreader.mdl.ru/MQTTProgrammingWithPython/content/Ch01.html
 
 **Скачивание зависимостей Python** <br>
+cd ml_executor <br>
 pipenv sync
+
+**Запуск ml_executor через докер** <br>
+cd ml_executor <br>
+docker build . -t lockfile:local <br>
+docker run -it --device=/dev/video0:/dev/video0 lockfile:local bash <br>
+python src/main.py
+
 
 Идентификатор mqtt-клиента генерируется автоматически в виде f'python-mqtt-{random.randint(0, 100)}' (в будущем возможна замена на uuid). </br>
 Параметры настройки клиента для взаимодействия с брокером </br>

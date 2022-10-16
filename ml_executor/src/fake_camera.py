@@ -21,5 +21,6 @@ class FakeCameraExecutor:
 
     def run(self):
 
-        data = pickle.loads(open("test_message.txt", "rb").read())
-        self.mqtt_publisher.send('recognition', data)
+        # data = pickle.loads(open("test_message.txt", "rb").read())
+        data = "test"
+        self.mqtt_publisher.send('current_view', data)
