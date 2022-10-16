@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../models/current_camera_model.dart';
@@ -17,7 +16,8 @@ class DatabaseService {
 
   Future<void> addUser(User user) async {
     return userRef
-        .add(user)
+        .doc(user.id)
+        .set(user)
         .then((_) => log('firebase :: user added'))
         .catchError((error) => log('firebase :: failed to add user: $error'));
   }
@@ -30,9 +30,17 @@ class DatabaseService {
         .catchError((error) => log('firebase :: failed to update user: $error'));
   }
 
+  Future<User> getUserDyId(String id) async {
+    return await userRef
+        .doc(id)
+        .get()
+        .then((snapshot) => snapshot.data()!);
+  }
+
   Future<void> addCamera(CameraModel camera) async {
     return cameraRef
-        .add(camera)
+        .doc(camera.id)
+        .set(camera)
         .then((_) => log('firebase :: camera added'))
         .catchError((error) => log('firebase :: failed to add camera: $error'));
   }
@@ -43,5 +51,12 @@ class DatabaseService {
         .update(camera.toJson())
         .then((_) => log('firebase :: camera updated'))
         .catchError((error) => log('firebase :: failed to update camera: $error'));
+  }
+
+  Future<CameraModel> getCameraById(String id) async {
+    return await cameraRef
+        .doc(id)
+        .get()
+        .then((snapshot) => snapshot.data()!);
   }
 }

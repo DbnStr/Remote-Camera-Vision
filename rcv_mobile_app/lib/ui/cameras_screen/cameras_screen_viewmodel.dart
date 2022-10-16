@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rcv_mobile_app/services/firebase.dart';
 import 'package:rcv_mobile_app/ui/add_person_screen/add_person_screen_view.dart';
 
-import '../../camera.dart';
 import '../../models/current_camera_model.dart';
+import '../../models/user_model.dart';
 import '../single_camera_screen/single_camera_screen_view.dart';
 
 class CamerasScreenViewModel extends ChangeNotifier {
-  final List<Camera> cameras = [];
+  final User user;
+  final List<CameraModel> cameras = [];
+  final DatabaseService db = DatabaseService();
 
-  void initialise() {
-    cameras.add(Camera("Архангельская область, город Балашиха, пр. Домодедовская, 56"));
-    cameras.add(Camera("Томская область, город Егорьевск, спуск Гагарина, 93"));
-    cameras.add(Camera("Томская область, город Егорьевск, спуск Гагарина, 93, город Егорьевск, спуск Гагарина, 93"));
-    cameras.add(Camera("ул. Ломоносова, 01"));
+  CamerasScreenViewModel(this.user);
+
+  void initialise() async {
+    // user.cameras.forEach((id) async {cameras.add(await db.getCameraById(id));});
+    for (var id in user.cameras) {
+      CameraModel camera = await db.getCameraById(id);
+      cameras.add(camera);
+    }
 
     notifyListeners();
   }
