@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rcv_mobile_app/constants/colors.dart';
 import 'package:stacked/stacked.dart';
 
@@ -28,7 +29,23 @@ class Buttons extends ViewModelWidget<AddPersonScreenViewModel> {
         padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
         child: ElevatedButton(
           onPressed: () {
+            // viewModel.publishNotificationPerson();
             print("Add");
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text('Человек успешно добавлен'),
+                content: Text(''),
+                actions: [
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      },
+                      child: Text('К списку камер'))
+                ],
+              ),
+            );
           },
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 50),

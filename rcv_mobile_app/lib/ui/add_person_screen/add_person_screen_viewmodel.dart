@@ -11,6 +11,7 @@ class AddPersonScreenViewModel extends ChangeNotifier {
   final nameController = TextEditingController();
 
   void initialise(context) {
+    print("init add person screen state");
     imagePicker = new ImagePicker();
     imageFileList = [];
     final topics = <String>[];
@@ -43,6 +44,6 @@ class AddPersonScreenViewModel extends ChangeNotifier {
 
   void publishNotificationPerson() {
     print(nameController.text);
-    //mqtt.publishNotificationPerson(Text(nameController.text), imageFileList);
+    mqtt.publishNotificationPerson(nameController.text, imageFileList);
   }
 }
