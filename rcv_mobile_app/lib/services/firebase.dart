@@ -30,7 +30,7 @@ class DatabaseService {
         .catchError((error) => log('firebase :: failed to update user: $error'));
   }
 
-  Future<User> getUserDyId(String id) async {
+  Future<User> getUserById(String id) async {
     return await userRef
         .doc(id)
         .get()

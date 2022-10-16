@@ -16,9 +16,9 @@ class CameraModel with ChangeNotifier {
   CameraModel(this.id, this.location);
 
   CameraModel.fromJson(this.id, Map<String, dynamic> json) {
-    location = json['location'] as String;
-    currentView = json['currentView'] as String;
-    currentViewDateTime = json['currentViewDateTime'] as DateTime;
+    location = json['location'] as String?;
+    currentView = json['currentView'] as String?;
+    currentViewDateTime = json['currentViewDateTime'] as DateTime?;
     notifications = (json['notifications'] as List).cast<CameraNotification>();
   }
 

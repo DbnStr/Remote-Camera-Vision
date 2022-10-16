@@ -9,10 +9,10 @@ class Coordinates {
 
   Coordinates.fromJson(Map<String, dynamic> json)
     : this(
-      json['top'] as int,
-      json['bottom'] as int,
-      json['left'] as int,
-      json['right'] as int
+      json['top'] as int?,
+      json['bottom'] as int?,
+      json['left'] as int?,
+      json['right'] as int?
     );
 
   Map<String, dynamic> toJson() {

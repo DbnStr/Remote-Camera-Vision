@@ -14,8 +14,7 @@ class CamerasScreenViewModel extends ChangeNotifier {
 
   CamerasScreenViewModel(this.user);
 
-  void initialise() async {
-    // user.cameras.forEach((id) async {cameras.add(await db.getCameraById(id));});
+  Future<void> initialise() async {
     for (var id in user.cameras) {
       CameraModel camera = await db.getCameraById(id);
       cameras.add(camera);
