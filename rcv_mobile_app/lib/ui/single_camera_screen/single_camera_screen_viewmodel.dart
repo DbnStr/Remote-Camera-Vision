@@ -42,7 +42,7 @@ class SingleCameraScreenViewModel extends ChangeNotifier {
   void openNotifications(context) {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return ChangeNotifierProvider(
-          create: (_) => CameraModel(), child: NotificationsScreenView());
+          create: (_) => CameraModel('defaultCamera', 'Москва'), child: NotificationsScreenView());
     }));
   }
 }

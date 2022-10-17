@@ -1,14 +1,13 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:ui' as ui;
 
-import '../../camera.dart';
+import '../../models/camera_notification_model.dart';
+import '../../models/person_model.dart';
 import '../notification_screen/notification_screen_view.dart';
 
 class NotificationsScreenViewModel extends ChangeNotifier {
-  final List<Camera> notifications = [];
+  final List<CameraNotification> notifications = [];
   ui.Image? image;
 
   //TODO: change depending on data format
@@ -25,8 +24,8 @@ class NotificationsScreenViewModel extends ChangeNotifier {
     ui.FrameInfo frame = await codec.getNextFrame();
     image = frame.image;
 
-    notifications.add(Camera("Человек"));
-    notifications.add(Camera("Не человек"));
+    notifications.add(CameraNotification(persons: [Person('default', 'Человек', null)]));
+    notifications.add(CameraNotification(persons: [Person(null, 'Не человек', null)]));
 
     notifyListeners();
   }

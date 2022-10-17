@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rcv_mobile_app/constants/colors.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../models/camera_notification_model.dart';
 import '../notifications_screen_viewmodel.dart';
 import 'notification_image_canvas_widget.dart';
 import '../../../constants/colors.dart';
@@ -15,7 +16,7 @@ class NotificationsList extends ViewModelWidget<NotificationsScreenViewModel> {
             padding: const EdgeInsets.only(left: 10, right: 10),
             itemCount: viewModel.notifications.length,
             itemBuilder: (BuildContext context, int index) {
-              dynamic item = viewModel.notifications[index];
+              CameraNotification item = viewModel.notifications[index];
               return Card(
                   elevation: 2,
                   margin: const EdgeInsets.all(4),
@@ -65,7 +66,7 @@ class NotificationsList extends ViewModelWidget<NotificationsScreenViewModel> {
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold,
                                           color: ColorTheme.secondaryText)),
-                                  Text(item.name,
+                                  Text(item.persons?.map((p) => p.name).toList().join(', ') ?? '',
                                       style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold,

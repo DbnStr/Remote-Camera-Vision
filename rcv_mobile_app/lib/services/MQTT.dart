@@ -71,12 +71,11 @@ class MQTT {
           Map<String, dynamic> data = jsonDecode(stringMes);
 
           if (mes.topic == Constants.CURENT_VIEW_TOPIC_NAME) {
-            model!.setView(Image.memory(base64Decode(data['image'])),
-                DateTime.parse(data['time']));
+            model!.setView(data['image'], DateTime.parse(data['time']));
           }
 
           if (mes.topic == Constants.RECOGNITION_TOPIC_NAME) {
-            final view = Image.memory(base64Decode(data['image']));
+            final view = data['image'];
             final time = DateTime.parse(data['time']);
             final persons = <Person>[];
             for (Map<String, dynamic> personJson in data['persons']) {
