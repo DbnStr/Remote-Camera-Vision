@@ -11,14 +11,12 @@ import 'package:rcv_mobile_app/models/camera_notification_model.dart';
 import 'package:rcv_mobile_app/models/coordinates_model.dart';
 import 'package:rcv_mobile_app/models/current_camera_model.dart';
 import 'package:rcv_mobile_app/models/person_model.dart';
-import 'package:rcv_mobile_app/services/firebase.dart';
 
 class MQTT {
 
   final String host;
   final int port;
   final List<String> topics;
-  final DatabaseService db = DatabaseService();
   CameraModel? model;
 
   late MqttServerClient _client;
@@ -74,7 +72,6 @@ class MQTT {
 
           if (mes.topic == Constants.CURENT_VIEW_TOPIC_NAME) {
             model!.setView(data['image'], DateTime.parse(data['time']));
-            db.updateCamera(model!);
           }
 
           if (mes.topic == Constants.RECOGNITION_TOPIC_NAME) {
@@ -90,7 +87,6 @@ class MQTT {
             }
             model!.addNotification(CameraNotification(
                 view: view, viewDateTime: time, persons: persons));
-            db.updateCamera(model!);
           }
         }
       });
