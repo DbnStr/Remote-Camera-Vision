@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:rcv_mobile_app/constants/colors.dart';
 import 'package:stacked/stacked.dart';
 
@@ -29,8 +30,8 @@ class NotificationsList extends ViewModelWidget<NotificationsScreenViewModel> {
                       children: [
                         Container(
                           width: double.infinity,
-                          height: 236,
-                          margin: const EdgeInsets.only(bottom: 54),
+                          height: 238,
+                          margin: const EdgeInsets.only(bottom: 56),
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(5),
@@ -49,7 +50,7 @@ class NotificationsList extends ViewModelWidget<NotificationsScreenViewModel> {
                           ),
                         ),
                         Container(
-                            height: 54,
+                            height: 56,
                             alignment: Alignment.centerLeft,
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
@@ -61,12 +62,24 @@ class NotificationsList extends ViewModelWidget<NotificationsScreenViewModel> {
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('00.00.0000',
+                                  Text(
+                                      DateFormat('d.M.y в H:m')
+                                          .format(item.viewDateTime!)
+                                          .toString(),
                                       style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold,
                                           color: ColorTheme.secondaryText)),
-                                  Text(item.persons?.map((p) => p.name).toList().join(', ') ?? '',
+                                  Text(
+                                      "К вам пришли: " +
+                                              item.persons!
+                                                  .map((p) => p.name)
+                                                  .toList()
+                                                  .join(', ') ??
+                                          '',
+                                      overflow: TextOverflow.fade,
+                                      maxLines: 1,
+                                      softWrap: false,
                                       style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold,
@@ -78,7 +91,8 @@ class NotificationsList extends ViewModelWidget<NotificationsScreenViewModel> {
                                 child: InkWell(
                                   borderRadius: BorderRadius.circular(5),
                                   splashColor: Colors.grey.withAlpha(30),
-                                  onTap: () => viewModel.openNotification(context),
+                                  onTap: () => viewModel.openNotification(
+                                      context, item.persons, item.viewDateTime),
                                 ))),
                       ]));
             }),

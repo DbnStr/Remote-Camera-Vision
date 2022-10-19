@@ -4,17 +4,23 @@ import 'package:rcv_mobile_app/constants/colors.dart';
 import 'package:rcv_mobile_app/constants/text.dart';
 import 'package:rcv_mobile_app/ui/notification_screen/widgets/notification_carousel_slider.dart';
 import 'package:stacked/stacked.dart';
+import 'package:intl/intl.dart';
 
+import '../../models/person_model.dart';
 import 'notification_screen_viewmodel.dart';
 
 class NotificationScreenView extends StatelessWidget {
+  final List<Person> data;
+  final DateTime date;
 
-  const NotificationScreenView({Key? key}) : super(key: key);
+  const NotificationScreenView(
+      {Key? key, required this.data, required this.date})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<NotificationScreenViewModel>.nonReactive(
-      viewModelBuilder: () => NotificationScreenViewModel(),
+      viewModelBuilder: () => NotificationScreenViewModel(data, date),
       onModelReady: (viewModel) => viewModel.initialise(context),
       builder: (context, viewModel, _) => Scaffold(
         backgroundColor: ColorTheme.primaryBg,
@@ -27,11 +33,12 @@ class NotificationScreenView extends StatelessWidget {
             children: [
               Expanded(
                 flex: 5,
-                child:
-                SingleChildScrollView(
+                child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Text(
-                      "00.00.0000",
+                      DateFormat('d.M.y в H:m')
+                          .format(viewModel.date)
+                          .toString(),
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,

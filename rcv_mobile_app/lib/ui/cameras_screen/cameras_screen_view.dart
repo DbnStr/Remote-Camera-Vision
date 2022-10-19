@@ -4,11 +4,13 @@ import 'package:stacked/stacked.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/text.dart';
+import '../../models/camera_notification_model.dart';
 import '../../models/user_model.dart';
 import 'cameras_screen_viewmodel.dart';
 
 class CamerasScreenView extends StatelessWidget {
   final User user;
+
   const CamerasScreenView({Key? key, required this.user}) : super(key: key);
 
   @override

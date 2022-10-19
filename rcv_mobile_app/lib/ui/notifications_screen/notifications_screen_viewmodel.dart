@@ -7,7 +7,7 @@ import '../../models/person_model.dart';
 import '../notification_screen/notification_screen_view.dart';
 
 class NotificationsScreenViewModel extends ChangeNotifier {
-  final List<CameraNotification> notifications = [];
+  final List<CameraNotification> notifications;
   ui.Image? image;
 
   //TODO: change depending on data format
@@ -16,7 +16,10 @@ class NotificationsScreenViewModel extends ChangeNotifier {
     [370, 203]
   ];
 
+  NotificationsScreenViewModel(this.notifications);
+
   Future<void> initialise() async {
+    print(notifications.length);
     //TODO: delete or change after getting image from MQTT. Convert Image to ui.Image for Canvas widget to work
     final ByteData bytes = await rootBundle.load('assets/images/sample2.jpg');
     final Uint8List bytes_list = bytes.buffer.asUint8List();
@@ -24,17 +27,14 @@ class NotificationsScreenViewModel extends ChangeNotifier {
     ui.FrameInfo frame = await codec.getNextFrame();
     image = frame.image;
 
-    notifications.add(CameraNotification(persons: [Person('default', 'Человек', null)]));
-    notifications.add(CameraNotification(persons: [Person(null, 'Не человек', null)]));
-
     notifyListeners();
   }
 
-  void openNotification(context) {
+  void openNotification(context, data, date) {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => NotificationScreenView(),
+          builder: (context) => NotificationScreenView(data: data, date: date),
         ));
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rcv_mobile_app/models/camera_notification_model.dart';
 import 'package:rcv_mobile_app/services/firebase.dart';
 import 'package:rcv_mobile_app/ui/add_person_screen/add_person_screen_view.dart';
 
@@ -27,7 +28,7 @@ class CamerasScreenViewModel extends ChangeNotifier {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return ChangeNotifierProvider(
           create: (_) => CameraModel('defaultCamera', 'Москва'),
-          child: SingleCameraScreenView(index: index, cameraName: name));
+          child: SingleCameraScreenView(index: index, cameraName: name, notifications: cameras[index].notifications));
     }));
   }
 

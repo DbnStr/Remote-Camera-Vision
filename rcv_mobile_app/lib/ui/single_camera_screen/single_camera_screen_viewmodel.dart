@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rcv_mobile_app/models/camera_notification_model.dart';
 import 'package:rcv_mobile_app/ui/notifications_screen/notifications_screen_view.dart';
 
 import '../../constants.dart';
@@ -10,6 +11,10 @@ class SingleCameraScreenViewModel extends ChangeNotifier {
   late String cameraName;
   late CameraModel model;
   late MQTT mqtt;
+
+  final List<CameraNotification> notifications;
+
+  SingleCameraScreenViewModel(this.notifications);
 
   void initialise(context) {
     print("init camera screen state");
@@ -42,7 +47,7 @@ class SingleCameraScreenViewModel extends ChangeNotifier {
   void openNotifications(context) {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return ChangeNotifierProvider(
-          create: (_) => CameraModel('defaultCamera', 'Москва'), child: NotificationsScreenView());
+          create: (_) => CameraModel('defaultCamera', 'Москва'), child: NotificationsScreenView(notifications: notifications));
     }));
   }
 }
