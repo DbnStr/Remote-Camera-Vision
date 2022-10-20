@@ -22,7 +22,7 @@ class CameraExecutor:
         self.ml_executor = MLExecutor()
         # self.ml_executor.load_data()
 
-        self.mqtt_publisher = MQTTPublisher()
+        self.mqtt_publisher = MQTTPublisher(self.ml_executor)
         self.mqtt_publisher.run()
 
         self.screen_timer = Timer(2, self.make_screen)
