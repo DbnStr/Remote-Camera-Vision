@@ -26,7 +26,7 @@ class DataBase(AbstractDataBase):
         """
         Информация о известных признаках загружается из файла face_enc
         """
-        data = pickle.loads(open('C:/Users/Daniela/Remote-Camera-Vision/ml_executor/src/face_enc', "rb").read())
+        data = pickle.loads(open('../face_enc', "rb").read())
         self.persons = data['persons']
         self.known_encodings = data['encodings']
 
