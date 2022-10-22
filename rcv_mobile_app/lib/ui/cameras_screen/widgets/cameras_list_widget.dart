@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rcv_mobile_app/models/current_camera_model.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../constants/colors.dart';
@@ -13,7 +14,7 @@ class CamerasList extends ViewModelWidget<CamerasScreenViewModel> {
             padding: const EdgeInsets.only(left: 10, right: 10),
             itemCount: viewModel.cameras.length,
             itemBuilder: (BuildContext context, int index) {
-              dynamic item = viewModel.cameras[index];
+              CameraModel item = viewModel.cameras[index];
               return Card(
                   elevation: 2,
                   margin: const EdgeInsets.all(4),
@@ -49,7 +50,7 @@ class CamerasList extends ViewModelWidget<CamerasScreenViewModel> {
                                   bottomRight: Radius.circular(5)),
                               color: ColorTheme.primaryBg,
                             ),
-                            child: Text(item.name,
+                            child: Text(item.location ?? '',
                                 style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
@@ -60,7 +61,7 @@ class CamerasList extends ViewModelWidget<CamerasScreenViewModel> {
                                 child: InkWell(
                                   borderRadius: BorderRadius.circular(5),
                                   splashColor: Colors.grey.withAlpha(30),
-                                  onTap: () => viewModel.openCamera(context, index, item.name),
+                                  onTap: () => viewModel.openCamera(context, index, item.location ?? ''),
                                 ))),
                       ]));
             }),

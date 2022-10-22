@@ -18,7 +18,7 @@ class CameraExecutor:
     Не в MVP версии будет включать логику взаимодействия с камерами на удаленных серверах
     """
 
-    def __init__(self):
+    def __init__(self, is_test=False):
         self.ml_executor = MLExecutor()
         # self.ml_executor.load_data()
 
@@ -27,7 +27,10 @@ class CameraExecutor:
 
         self.screen_timer = Timer(2, self.make_screen)
 
-        self.video_capture = cv2.VideoCapture(0)
+        if is_test:
+            self.video_capture = cv2.VideoCapture('https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_2mb.mp4')
+        else:
+            self.video_capture = cv2.VideoCapture(0)
 
         self.logger = logging.getLogger('ml_executor.{}'.format(__name__))
 
@@ -68,21 +71,23 @@ class CameraExecutor:
             if not self.ml_executor.is_trained_enough():
                 self.ml_executor.train()
 
-            image_encoded, results = self.ml_executor.face_recognize(frame)
-            new_names = [result['name'] for result in results]
-            if self.is_there_new_persons(new_names):
-                time = str(datetime.datetime.now())
-                data = {
-                    'image': image_encoded,
-                    'persons': results,
-                    'time': time
-                }
-                self.last_recognized_persons = new_names
-                self.mqtt_publisher.send('recognition', data)
-                self.logger.info("На кадре распознаны {}".format(json.dumps(results)))
+            if frame is not None:
+                image_encoded, results = self.ml_executor.face_recognize(frame)
+                new_names = [result['name'] for result in results]
+                if self.is_there_new_persons(new_names):
+                    time = str(datetime.datetime.now())
+                    data = {
+                        'image': image_encoded,
+                        'persons': results,
+                        'time': time
+                    }
+                    self.last_recognized_persons = new_names
+                    self.mqtt_publisher.send('recognition', data)
+                    self.logger.info("На кадре распознаны {}".format(json.dumps(results)))
 
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    break
+
 
             await asyncio.sleep(0.5)
 
@@ -96,9 +101,10 @@ class CameraExecutor:
         Отправляет текущее состояние камеры пользователю
         """
         ret, frame = self.video_capture.read()
-        jpg_as_text = base64.b64encode(cv2.imencode('.jpg', frame)[1]).decode()
-        print("make screen")
-        self.mqtt_publisher.send("current_view", {
-            'image': jpg_as_text,
-            'time': str(datetime.datetime.now())
-        })
+        if frame is not None:
+            jpg_as_text = base64.b64encode(cv2.imencode('.jpg', frame)[1]).decode()
+            print("make screen")
+            self.mqtt_publisher.send("current_view", {
+                'image': jpg_as_text,
+                'time': str(datetime.datetime.now())
+            })

@@ -5,7 +5,6 @@ import '../services/MQTT.dart';
 import '../constants.dart';
 import 'package:provider/provider.dart';
 import 'package:rcv_mobile_app/models/current_camera_model.dart';
-import 'camera_screen.dart';
 
 class AddPersonScreen extends StatefulWidget {
 

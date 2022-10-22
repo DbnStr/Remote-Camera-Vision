@@ -4,15 +4,17 @@ import 'package:stacked/stacked.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/text.dart';
+import '../../models/user_model.dart';
 import 'cameras_screen_viewmodel.dart';
 
 class CamerasScreenView extends StatelessWidget {
-  const CamerasScreenView({Key? key}) : super(key: key);
+  final User user;
+  const CamerasScreenView({Key? key, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<CamerasScreenViewModel>.nonReactive(
-      viewModelBuilder: () => CamerasScreenViewModel(),
+      viewModelBuilder: () => CamerasScreenViewModel(user),
       onModelReady: (viewModel) => viewModel.initialise(),
       builder: (context, viewModel, _) => Scaffold(
         backgroundColor: ColorTheme.primaryBg,

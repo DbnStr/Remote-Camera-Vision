@@ -4,10 +4,11 @@ import random
 
 import paho.mqtt.client as mqtt
 
-username = 'emqx'
-password = 'public'
+username = 'root'
+password = '4o4dMWWwP2'
 # host = 'broker.emqx.io'
-host = 'localhost'
+host = '194.87.232.100'
+# host = 'localhost'
 
 
 class MQTTPublisher:
@@ -29,7 +30,7 @@ class MQTTPublisher:
                 print("Failed to connect, return code {}\n".format(rc))
 
         client = mqtt.Client(self.client_id)
-        # client.username_pw_set(username, password)
+        client.username_pw_set(username, password)
         client.on_connect = on_connect
         client.connect(self.mqtt_host, self.mqtt_port)
         return client

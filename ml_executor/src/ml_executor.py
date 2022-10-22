@@ -108,7 +108,7 @@ class MLExecutor:
             known_encodings = [encoding[self.db.encoding_data_field] for encoding in self.db.get_encodings()]
             idx = [encoding[self.db.person_id_field] for encoding in self.db.get_encodings()]
             matches = face_recognition.compare_faces(known_encodings, encoding)
-            name_id = -1
+            name_id = "-1"
             if True in matches:
                 matched_ids = [i for (i, b) in enumerate(matches) if b]
                 counts = {}
@@ -117,7 +117,7 @@ class MLExecutor:
                     counts[name_id] = counts.get(name_id, 0) + 1
                 name_id = max(counts, key=counts.get)
 
-            if name_id == -1:
+            if name_id == "-1":
                 name = "Unknown"
             else:
                 name = self.db.get_name_by_id(name_id)
