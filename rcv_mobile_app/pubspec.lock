@@ -184,6 +184,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  get_it:
+    dependency: transitive
+    description:
+      name: get_it
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "7.2.0"
   http:
     dependency: transitive
     description:
@@ -206,6 +213,7 @@ packages:
     source: hosted
     version: "0.9.8+3"
   image_picker:
+    dependency: "direct main"
     description:
       name: image_picker
       url: "https://pub.dartlang.org"

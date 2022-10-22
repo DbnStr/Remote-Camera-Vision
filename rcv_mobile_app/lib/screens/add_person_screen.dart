@@ -84,7 +84,7 @@ class AddPersonScreenState extends State<AddPersonScreen> {
           ElevatedButton(
             child: Text('Добавить'),
             onPressed: () {
-              mqtt.publishNotificationPerson(nameController.text, imageFileList);
+              mqtt.publishNewRecognizablePerson(nameController.text, imageFileList);
             //   Navigator.push(context, MaterialPageRoute(builder: (context) {
             //     // mqttBrowserManager.publishMessage(
             //     //     pubTopic, "Increment button pushed ${_counter.toString()} times.");

@@ -44,6 +44,6 @@ class AddPersonScreenViewModel extends ChangeNotifier {
 
   void publishNotificationPerson() {
     print(nameController.text);
-    mqtt.publishNotificationPerson(nameController.text, imageFileList);
+    mqtt.publishNewRecognizablePerson(nameController.text, imageFileList);
   }
 }

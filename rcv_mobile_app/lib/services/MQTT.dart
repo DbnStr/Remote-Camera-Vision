@@ -177,11 +177,10 @@ class MQTT {
     builder.clear();
   }
 
-  // Тест публикации уведомления о добавлении нового человека
-  Future<void> publishNotificationPerson(personName, personPhoto) async {
+  // Отправка публикации о добавлении нового человека
+  Future<void> publishNewRecognizablePerson(personName, personPhoto) async {
     final builder = MqttClientPayloadBuilder();
 
-    String dateTime = DateTime.now().toString();
     var photos = [];
     for (var photo in personPhoto) {
       List<int> imageBytes = await photo.readAsBytes();
@@ -194,7 +193,6 @@ class MQTT {
             {
               "name": personName,
               "photos": photos,
-              "time": dateTime,
             }
         )
     );

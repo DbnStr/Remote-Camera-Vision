@@ -44,6 +44,7 @@ class Buttons extends ViewModelWidget<AddPersonScreenViewModel> {
                       },
                       child: Text('К списку камер'))
                 ],
+                  actionsAlignment: MainAxisAlignment.center
               ),
             );
           },
