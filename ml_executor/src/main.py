@@ -1,7 +1,6 @@
 import logging
 
 import asyncio
-
 from camera_executor import CameraExecutor
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')

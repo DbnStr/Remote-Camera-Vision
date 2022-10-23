@@ -42,7 +42,7 @@ class AddPersonScreenView extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
           child: SingleChildScrollView(
-            physics: ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             child: Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 12, 0),
               child: Column(

@@ -1,9 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'dart:typed_data';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:rcv_mobile_app/constants.dart';
@@ -112,66 +109,29 @@ class MQTT {
     log('MQTT :: Disconnected');
   }
 
-  // Тест публикации текущего view камеры
-  Future<void> publishCurrentView() async {
+  // Отправка публикации о добавлении нового человека
+  Future<void> publishNewRecognizablePerson(personName, personPhoto) async {
     final builder = MqttClientPayloadBuilder();
 
-    String dateTime = DateTime.now().toString();
-    String path = 'assets/images/sample2.jpg';
-    final image = await rootBundle.load(path);
-    Uint8List imageBytes = image.buffer.asUint8List(image.offsetInBytes, image.lengthInBytes);
-    String imageString = base64.encode(imageBytes);
+    var photos = [];
+    for (var photo in personPhoto) {
+      List<int> imageBytes = await photo.readAsBytes();
+      String imageString = base64.encode(imageBytes);
+      photos.add(imageString);
+    }
 
     builder.addString(
         json.encode(
             {
-              "image": imageString,
-              "time": dateTime,
+              "name": personName,
+              "photos": photos,
             }
         )
     );
 
-    _client.publishMessage(
-        Constants.CURENT_VIEW_TOPIC_NAME, MqttQos.exactlyOnce, builder.payload!);
-
-    log("MQTT :: publish success");
-
-    builder.clear();
-  }
-
-  // Тест публикации уведомления о том, что кто-то пришел
-  Future<void> publishNotification() async {
-    final builder = MqttClientPayloadBuilder();
-
-    String dateTime = DateTime.now().toString();
-    String path = 'assets/images/sample2.jpg';
-    final image = await rootBundle.load(path);
-    Uint8List imageBytes = image.buffer.asUint8List(image.offsetInBytes, image.lengthInBytes);
-    String imageString = base64.encode(imageBytes);
-
-    builder.addString(
-        json.encode(
-            {
-              "image": imageString,
-              "persons": [
-                {
-                  "id": 1,
-                  "name": "Alexey",
-                  "coordinates": {
-                    "top": 1,
-                    "right": 2,
-                    "bottom": 3,
-                    "left": 4
-                  }
-                }
-              ],
-              "time": dateTime,
-            }
-        )
-    );
 
     _client.publishMessage(
-        Constants.RECOGNITION_TOPIC_NAME, MqttQos.exactlyOnce, builder.payload!);
+        Constants.NEW_PERSON_TOPIC_NAME, MqttQos.exactlyOnce, builder.payload!);
 
     log("MQTT :: publish success");
 
