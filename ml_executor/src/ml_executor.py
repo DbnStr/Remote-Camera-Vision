@@ -1,8 +1,10 @@
+import asyncio
 import base64
 import logging
 import os
 import pickle
 import uuid
+from copy import deepcopy
 
 import cv2
 import face_recognition
@@ -40,57 +42,56 @@ class MLExecutor:
         """
         self.db = DataBase()
 
+        self.retrain_number = 1
+
         self.logger = logging.getLogger('ml_executor.{}'.format(__name__))
 
     def train(self):
         """
         На каждой фотографии из набора выделяются участки с лицом,
         после чего происходит эмбеддинг признаков и сохранение этих данных с именем человека
-
-        Фотографии для обучения хранятся в директории ../training_set/<ФИО>
-        Формат файлов: <ФИО>.jpg
         """
-        image_paths = list(paths.list_images('../training_set'))
-        dirs = set()
-        for (i, image_path) in enumerate(image_paths):
-            person_name = image_path.split("/")[-2]
-            dirs.add(f'../training_set/{person_name}')
+        self.db.load_persons_photo()
+        persons_photos = deepcopy(self.db.get_persons_photo())
 
-        for image_dir in dirs:
-            image_subpaths = list(paths.list_images(image_dir))
-            person_name = image_dir.split("/")[-1]
-            id = str(uuid.uuid4())
-            self.db.add_person(id, person_name)
-            for (j, image_subpath) in enumerate(image_subpaths):
-
-                # person_name = re.match(r'(?P<name>[^.]*).jpg', file_name).group('name')
-                self.logger.debug("subpath: {}".format(image_subpath))
-                self.logger.debug("name: {}".format(person_name))
-
-                image = cv2.imread(image_subpath)
+        for person_id, photos in persons_photos.items():
+            for image_path in photos:
+                print("before read image")
+                image = cv2.imread(image_path)
+                print("after read image")
                 rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
                 boxes = face_recognition.face_locations(rgb, model='hog')
+                print("face locations")
                 encodings = face_recognition.face_encodings(rgb, boxes)
+                print("face encodings")
                 for encoding in encodings:
-                    self.db.add_encoding(id, encoding)
+                    self.db.add_encoding(person_id, encoding)
 
-        data = {"encodings": self.db.get_encodings(), "names": self.db.get_persons()}
+                print("add encodings")
+
+        data = {"encodings": self.db.get_encodings(), "persons": self.db.get_persons()}
+        print("before write data")
         with open("face_enc", "wb") as file:
             file.write(pickle.dumps(data))
+        print("after write data")
 
     def is_trained_enough(self):
         """
         Выполняется проверка на то, была ли уже обучена модель на выборке
+        или накопилось ли достаточно новых данных для переобучения
         """
         image_paths = list(paths.list_images('../training_set'))
-        if len(image_paths) == len(self.db.get_encodings()):
+        if len(self.db.get_encodings()) != 0 and len(image_paths) - len(self.db.get_encodings()) < self.retrain_number:
             return True
         else:
             return False
 
     def load_data(self):
         self.db.load_data()
+
+    def add_person(self, name, photos):
+        self.db.add_person_photos(name, photos)
 
     def face_recognize(self, image):
         """
