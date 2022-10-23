@@ -1,5 +1,6 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:rcv_mobile_app/constants/colors.dart';
 import 'package:stacked/stacked.dart';
 
@@ -14,7 +15,7 @@ class Buttons extends ViewModelWidget<AddPersonScreenViewModel> {
         padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
         child: ElevatedButton(
           onPressed: () {
-            print("Select");
+            log("Add person screen :: Select images");
             viewModel.selectImages();
           },
           style: ElevatedButton.styleFrom(
@@ -29,20 +30,20 @@ class Buttons extends ViewModelWidget<AddPersonScreenViewModel> {
         padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
         child: ElevatedButton(
           onPressed: () {
-            // viewModel.publishNotificationPerson();
-            print("Add");
+            viewModel.publishNotificationPerson();
+            log("Add person screen :: Add new person");
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                title: Text('Человек успешно добавлен'),
-                content: Text(''),
+                title: const Text('Человек успешно добавлен'),
+                content: const Text(''),
                 actions: [
                   ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);
                         Navigator.pop(context);
                       },
-                      child: Text('К списку камер'))
+                      child: const Text('К списку камер'))
                 ],
                   actionsAlignment: MainAxisAlignment.center
               ),

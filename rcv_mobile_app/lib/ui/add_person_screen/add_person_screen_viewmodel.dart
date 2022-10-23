@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -11,14 +13,12 @@ class AddPersonScreenViewModel extends ChangeNotifier {
   final nameController = TextEditingController();
 
   void initialise(context) {
-    print("init add person screen state");
-    imagePicker = new ImagePicker();
+    log("AddPersonScreenViewModel :: init add person screen state");
+    imagePicker = ImagePicker();
     imageFileList = [];
-    final topics = <String>[];
-    topics.add(Constants.NEW_PERSON_TOPIC_NAME);
     mqtt = MQTT(Constants.MQTT_HOST_NAME,
         Constants.MQTT_PORT,
-        topics);
+        <String>[]);
     mqtt.initializeMQTTClient();
     mqtt.connect();
 
@@ -43,7 +43,7 @@ class AddPersonScreenViewModel extends ChangeNotifier {
   }
 
   void publishNotificationPerson() {
-    print(nameController.text);
+    log(nameController.text);
     mqtt.publishNewRecognizablePerson(nameController.text, imageFileList);
   }
 }
