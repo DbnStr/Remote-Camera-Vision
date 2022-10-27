@@ -12,7 +12,7 @@ class FakeCameraExecutor:
         self.ml_executor = MLExecutor()
         # self.ml_executor.load_data()
 
-        self.mqtt_publisher = MQTTPublisher()
+        self.mqtt_publisher = MQTTPublisher(self.ml_executor)
         self.mqtt_publisher.run()
 
         self.logger = logging.getLogger('ml_executor.{}'.format(__name__))
