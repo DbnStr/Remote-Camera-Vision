@@ -8,19 +8,21 @@ import 'package:intl/intl.dart';
 
 import '../../models/person_model.dart';
 import 'notification_screen_viewmodel.dart';
+import 'dart:ui' as ui;
 
 class NotificationScreenView extends StatelessWidget {
   final List<Person> data;
   final DateTime date;
+  final ui.Image image;
 
   const NotificationScreenView(
-      {Key? key, required this.data, required this.date})
+      {Key? key, required this.data, required this.date, required this.image})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<NotificationScreenViewModel>.nonReactive(
-      viewModelBuilder: () => NotificationScreenViewModel(data, date),
+      viewModelBuilder: () => NotificationScreenViewModel(data, date, image),
       onModelReady: (viewModel) => viewModel.initialise(context),
       builder: (context, viewModel, _) => Scaffold(
         backgroundColor: ColorTheme.primaryBg,

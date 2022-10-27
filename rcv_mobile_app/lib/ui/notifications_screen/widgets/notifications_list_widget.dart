@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:rcv_mobile_app/constants/colors.dart';
 import 'package:stacked/stacked.dart';
@@ -7,6 +8,7 @@ import '../../../models/camera_notification_model.dart';
 import '../notifications_screen_viewmodel.dart';
 import 'notification_image_canvas_widget.dart';
 import '../../../constants/colors.dart';
+import 'dart:ui' as ui;
 
 class NotificationsList extends ViewModelWidget<NotificationsScreenViewModel> {
   @override
@@ -45,7 +47,7 @@ class NotificationsList extends ViewModelWidget<NotificationsScreenViewModel> {
                                   MediaQuery.of(context).size.width * 0.96,
                                   MediaQuery.of(context).size.height * 0.5),
                               painter: NotificationImageCanvas(
-                                  image: viewModel.image, bbox: viewModel.bbox),
+                                  image: viewModel.getImageByIndex(index), bbox: viewModel.bbox),
                             ),
                           ),
                         ),
@@ -92,7 +94,7 @@ class NotificationsList extends ViewModelWidget<NotificationsScreenViewModel> {
                                   borderRadius: BorderRadius.circular(5),
                                   splashColor: Colors.grey.withAlpha(30),
                                   onTap: () => viewModel.openNotification(
-                                      context, item.persons, item.viewDateTime),
+                                      context, item.persons, item.viewDateTime, viewModel.getImageByIndex(index)),
                                 ))),
                       ]));
             }),

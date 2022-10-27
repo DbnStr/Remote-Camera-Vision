@@ -8,24 +8,17 @@ import '../../models/person_model.dart';
 class NotificationScreenViewModel extends ChangeNotifier {
   final List<Person> data;
   final DateTime date;
+  final ui.Image image;
 
   List<String> persons = ['Человек', 'Не человек'];
-  ui.Image? image;
   var bbox = [
     [800, 200],
     [370, 203]
   ];
 
-  NotificationScreenViewModel(this.data, this.date);
+  NotificationScreenViewModel(this.data, this.date, this.image);
 
   Future<void> initialise(context) async {
-    //TODO: delete or change after getting image from MQTT. Convert Image to ui.Image for Canvas widget to work
-    final ByteData bytes = await rootBundle.load('assets/images/sample2.jpg');
-    final Uint8List bytes_list = bytes.buffer.asUint8List();
-    ui.Codec codec = await ui.instantiateImageCodec(bytes_list);
-    ui.FrameInfo frame = await codec.getNextFrame();
-    image = frame.image;
-
     notifyListeners();
   }
 
