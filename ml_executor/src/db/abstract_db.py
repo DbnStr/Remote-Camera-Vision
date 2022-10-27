@@ -11,13 +11,13 @@ class AbstractDataBase(ABC):
         pass
 
     @abstractmethod
-    def get_persons(self):
-        pass
-
-    @abstractmethod
-    def add_new_encoding(self, name, encoding):
-        pass
-
-    @abstractmethod
     def add_encoding(self, id, encoding):
+        pass
+
+    @abstractmethod
+    def add_person(self, person_id, name, images_paths):
+        pass
+
+    @abstractmethod
+    def add_person_photos(self, name, photos):
         pass

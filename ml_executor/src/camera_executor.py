@@ -9,6 +9,7 @@ import cv2
 from ml_executor import MLExecutor
 from mqtt_publisher import MQTTPublisher
 from timer import Timer
+from db.db import FirebaseDataBase
 
 
 class CameraExecutor:
@@ -19,8 +20,11 @@ class CameraExecutor:
     """
 
     def __init__(self, is_test=False):
-        self.ml_executor = MLExecutor()
-        # self.ml_executor.load_data()
+        # TODO make changeable id
+        self.id = 1
+        self.firebase_db = FirebaseDataBase()
+        self.ml_executor = MLExecutor(self.firebase_db)
+        self.ml_executor.load_data()
 
         self.mqtt_publisher = MQTTPublisher(self.ml_executor)
         self.mqtt_publisher.run()
@@ -77,17 +81,17 @@ class CameraExecutor:
                 if self.is_there_new_persons(new_names):
                     time = str(datetime.datetime.now())
                     data = {
-                        'image': image_encoded,
+                        'view': image_encoded,
                         'persons': results,
-                        'time': time
+                        'viewDateTime': time
                     }
                     self.last_recognized_persons = new_names
                     self.mqtt_publisher.send('recognition', data)
+                    self.firebase_db.save_recognition_notification(self.id, data)
                     self.logger.info("На кадре распознаны {}".format(json.dumps(results)))
 
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
-
 
             await asyncio.sleep(0.5)
 
@@ -105,6 +109,6 @@ class CameraExecutor:
             jpg_as_text = base64.b64encode(cv2.imencode('.jpg', frame)[1]).decode()
             print("make screen")
             self.mqtt_publisher.send("current_view", {
-                'image': jpg_as_text,
-                'time': str(datetime.datetime.now())
+                'view': jpg_as_text,
+                'viewDateTime': str(datetime.datetime.now())
             })

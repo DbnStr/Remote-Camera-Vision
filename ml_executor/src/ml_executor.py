@@ -8,6 +8,7 @@ from copy import deepcopy
 
 import cv2
 import face_recognition
+import numpy as np
 from imutils import paths
 
 from db.fake_db import DataBase
@@ -35,12 +36,15 @@ def read_test_set():
 
 class MLExecutor:
 
-    def __init__(self):
+    def __init__(self, db=None):
 
         """
         Класс посредник для взаимодействия с БД
         """
-        self.db = DataBase()
+        if db is None:
+            self.db = DataBase()
+        else:
+            self.db = db
 
         self.retrain_number = 1
 
@@ -51,38 +55,39 @@ class MLExecutor:
         На каждой фотографии из набора выделяются участки с лицом,
         после чего происходит эмбеддинг признаков и сохранение этих данных с именем человека
         """
-        self.db.load_persons_photo()
+        print("START TRAIN")
         persons_photos = deepcopy(self.db.get_persons_photo())
+        persons_map = {}
+        encodings_arr = []
 
-        for person_id, photos in persons_photos.items():
-            for image_path in photos:
-                print("before read image")
-                image = cv2.imread(image_path)
-                print("after read image")
-                rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        for person_name, photos in persons_photos.items():
+            person_id = self.db.create_id(person_name)
+            persons_map[person_id] = person_name
+            for photo in photos:
+                # image = cv2.imread(image_path)
+                image = np.fromstring(photo, np.uint8)
+                img = cv2.imdecode(image, flags=1)
+                rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
                 boxes = face_recognition.face_locations(rgb, model='hog')
-                print("face locations")
                 encodings = face_recognition.face_encodings(rgb, boxes)
-                print("face encodings")
                 for encoding in encodings:
-                    self.db.add_encoding(person_id, encoding)
+                    encodings_arr.append({self.db.person_id_field: person_id,
+                                          self.db.encoding_data_field: encoding.tolist()})
 
-                print("add encodings")
+        self.db.add_encoding(encodings_arr)
+        self.db.set_persons(persons_map)
 
-        data = {"encodings": self.db.get_encodings(), "persons": self.db.get_persons()}
-        print("before write data")
-        with open("face_enc", "wb") as file:
-            file.write(pickle.dumps(data))
-        print("after write data")
+        print("TRAINED")
 
     def is_trained_enough(self):
         """
         Выполняется проверка на то, была ли уже обучена модель на выборке
         или накопилось ли достаточно новых данных для переобучения
         """
-        image_paths = list(paths.list_images('../training_set'))
-        if len(self.db.get_encodings()) != 0 and len(image_paths) - len(self.db.get_encodings()) < self.retrain_number:
+        known_persons_amount = self.db.known_person_amount()
+        if len(self.db.get_encodings()) != 0 and \
+                known_persons_amount - len(self.db.get_encodings()) < self.retrain_number:
             return True
         else:
             return False
@@ -130,20 +135,7 @@ class MLExecutor:
                 'left': left
             }})
 
-            # # Рисуем рамку
-            # cv2.rectangle(image, (left, top), (right, bottom), (0, 0, 255), 2)
-            #
-            # # Рисуем метку с именем
-            # font = cv2.FONT_HERSHEY_COMPLEX
-            # print(name)
-            # cv2.putText(image, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
-
         img_encode = cv2.imencode('.jpg', image)[1]
         jpg_as_text = base64.b64encode(img_encode).decode()
-
-        # # Выводим изоражение
-        # cv2.imshow('Photo', image)
-        # cv2.waitKey(0)
-        # time.sleep(3)
 
         return jpg_as_text, persons

@@ -46,11 +46,6 @@ class DataBase(AbstractDataBase):
     def get_persons(self):
         return self.persons
 
-    def add_new_encoding(self, name, encoding):
-        id = uuid.uuid4()
-        self.persons[id] = name
-        self.known_encodings.append({self.person_id_field: id, self.encoding_data_field: encoding})
-
     def add_person(self, person_id, name, images_paths):
         self.persons[person_id] = name
         self.persons_photos[person_id] = images_paths

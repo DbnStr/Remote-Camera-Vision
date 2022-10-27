@@ -40,7 +40,7 @@ def subscribe(client: mqtt):
             str_data = str(msg.payload.decode('UTF-8'))
             print(msg.topic + " " + str_data)
             data = json.loads(str_data)
-            jpg_as_text = data['image']
+            jpg_as_text = data['view']
             jpg_original = base64.b64decode(jpg_as_text)
             jpg_as_np = np.frombuffer(jpg_original, dtype=np.uint8)
             image_buffer = cv2.imdecode(jpg_as_np, flags=1)
