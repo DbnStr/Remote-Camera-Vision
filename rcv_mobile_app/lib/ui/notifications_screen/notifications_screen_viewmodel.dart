@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'dart:ui' as ui;
 
 import '../../models/camera_notification_model.dart';
-import '../../models/person_model.dart';
 import '../notification_screen/notification_screen_view.dart';
 
 class NotificationsScreenViewModel extends ChangeNotifier {
@@ -12,8 +11,8 @@ class NotificationsScreenViewModel extends ChangeNotifier {
 
   //TODO: change depending on data format
   var bbox = [
-    [800, 200],
-    [370, 203]
+    [0, 0],
+    [0, 0]
   ];
 
   NotificationsScreenViewModel(this.notifications);
