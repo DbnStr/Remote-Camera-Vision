@@ -28,7 +28,7 @@ class NotificationCarouselSlider
             height: MediaQuery.of(context).size.height - 100,
             enableInfiniteScroll: false,
           ),
-          items: viewModel.persons!.map((item) {
+          items: viewModel.data!.map((item) {
             return Builder(
               builder: (BuildContext context) {
                 return Column(children: [
@@ -51,7 +51,7 @@ class NotificationCarouselSlider
                   Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                      child: Text('${item}',
+                      child: Text('${item.name}',
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,

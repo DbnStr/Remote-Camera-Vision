@@ -7,18 +7,21 @@ import 'package:rcv_mobile_app/ui/single_camera_screen/widgets/buttons_widget.da
 import 'package:rcv_mobile_app/ui/single_camera_screen/widgets/camera_widget.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../models/camera_notification_model.dart';
+
 class SingleCameraScreenView extends StatelessWidget {
   final int index;
   final String cameraName;
+  final List<CameraNotification> notifications;
 
   const SingleCameraScreenView(
-      {Key? key, required this.index, required this.cameraName})
+      {Key? key, required this.index, required this.cameraName, required this.notifications})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<SingleCameraScreenViewModel>.nonReactive(
-      viewModelBuilder: () => SingleCameraScreenViewModel(),
+      viewModelBuilder: () => SingleCameraScreenViewModel(notifications),
       onModelReady: (viewModel) => viewModel.initialise(context),
       builder: (context, viewModel, _) => Scaffold(
         backgroundColor: ColorTheme.primaryBg,

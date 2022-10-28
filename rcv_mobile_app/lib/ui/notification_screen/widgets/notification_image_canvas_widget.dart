@@ -10,6 +10,9 @@ class NotificationImageCanvas extends CustomPainter {
   List<dynamic>? bbox;
 
   @override
+  bool shouldRepaint(NotificationImageCanvas oldDelegate) => oldDelegate.image != this.image;
+
+  @override
   void paint(Canvas canvas, Size size) {
     if (image != null) {
       paintImage(
@@ -52,10 +55,5 @@ class NotificationImageCanvas extends CustomPainter {
       canvas.drawLine(downRight, RightUp, framePaint);
       canvas.drawLine(leftUp, RightUp, framePaint);
     }
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
   }
 }

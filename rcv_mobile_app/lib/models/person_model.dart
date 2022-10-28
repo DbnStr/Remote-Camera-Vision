@@ -9,10 +9,10 @@ class Person {
 
   Person.fromJson(Map<String, dynamic> json)
       : this(
-        json['id'] as String?,
-        json['name'] as String?,
-        json['faceCoordinates'] as Coordinates?
-  );
+            json['id'] as String?,
+            json['name'] as String?,
+            Coordinates.fromJson(
+                Map<String, dynamic>.from(json['faceCoordinates'])));
 
   Map<String, dynamic> toJson() {
     return {
