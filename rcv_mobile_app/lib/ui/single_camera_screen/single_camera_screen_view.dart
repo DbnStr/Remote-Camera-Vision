@@ -11,12 +11,14 @@ import 'package:stacked/stacked.dart';
 class SingleCameraScreenView extends StatelessWidget {
   final CameraModel camera;
 
-  const SingleCameraScreenView(this.camera, {super.key});
+  const SingleCameraScreenView(
+      {Key? key, required this.camera})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<SingleCameraScreenViewModel>.nonReactive(
-      viewModelBuilder: () => SingleCameraScreenViewModel(),
+      viewModelBuilder: () => SingleCameraScreenViewModel(camera),
       onModelReady: (viewModel) => viewModel.initialise(context),
       builder: (context, viewModel, _) => Scaffold(
         backgroundColor: ColorTheme.primaryBg,

@@ -11,6 +11,9 @@ class SingleCameraScreenViewModel extends ChangeNotifier {
   late CameraModel model;
   late MQTT mqtt;
 
+  final CameraModel camera;
+  SingleCameraScreenViewModel(this.camera);
+
   void initialise(context) {
     print("init camera screen state");
     cameraName = "CAMERA";
@@ -22,8 +25,8 @@ class SingleCameraScreenViewModel extends ChangeNotifier {
     mqtt.initializeMQTTClient();
     mqtt.connect();
 
-    model = Provider.of<CameraModel>(context);
-    mqtt.model = model;
+    model = camera;
+    mqtt.model = camera;
 
     model.addListener(() {
       notifyListeners();

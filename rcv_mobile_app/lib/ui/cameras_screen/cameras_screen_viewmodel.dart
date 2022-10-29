@@ -27,8 +27,7 @@ class CamerasScreenViewModel extends ChangeNotifier {
 
   void openCamera(context, camera) {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
-      print('open');
-      return SingleCameraScreenView(camera);
+      return SingleCameraScreenView(camera: camera);
     }));
   }
 
