@@ -14,6 +14,7 @@ void main() async {
         appId: '1:612117612757:android:5130cf41a3cc6589dfba5c',
         messagingSenderId: '612117612757',
         projectId: 'remote-camera-vision',
+        //storageBucket:'remote-camera-vision.appspot.com'
     )
   );
 

@@ -1,10 +1,12 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import '../models/current_camera_model.dart';
 import '../models/user_model.dart';
 
 class DatabaseService {
+  final storageRef = FirebaseStorage.instance.ref();
   final userRef = FirebaseFirestore.instance.collection('users').withConverter<User>(
     fromFirestore: (snapshot, _) => User.fromJson(snapshot.reference.id, snapshot.data()!),
     toFirestore: (user, _) => user.toJson(),
@@ -13,6 +15,10 @@ class DatabaseService {
     fromFirestore: (snapshot, _) => CameraModel.fromJson(snapshot.reference.id, snapshot.data()!),
     toFirestore: (camera, _) => camera.toJson(),
   );
+
+  Future<String> getImageLink(String? ref) async {
+    return await storageRef.child(ref ?? '').getDownloadURL();
+  }
 
   Future<void> addUser(User user) async {
     return userRef

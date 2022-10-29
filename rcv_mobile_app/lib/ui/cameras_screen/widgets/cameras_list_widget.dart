@@ -3,9 +3,12 @@ import 'package:rcv_mobile_app/models/current_camera_model.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../constants/colors.dart';
+import '../../../services/firebase.dart';
 import '../cameras_screen_viewmodel.dart';
 
 class CamerasList extends ViewModelWidget<CamerasScreenViewModel> {
+  final DatabaseService db = DatabaseService();
+
   @override
   Widget build(BuildContext context, CamerasScreenViewModel viewModel) {
     return Stack(
@@ -25,21 +28,26 @@ class CamerasList extends ViewModelWidget<CamerasScreenViewModel> {
                       fit: StackFit.loose,
                       alignment: Alignment.bottomRight,
                       children: [
-                        Container(
-                          width: double.infinity,
-                          height: 250,
-                          margin: const EdgeInsets.only(bottom: 60),
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                    "https://yandex-images.clstorage.net/5DjV0L235/3c2c1fyMA/-Ukf_3vh1HXW_AdIF4vjvmL-9GE3Ynw9zVBKkoPDwFKm2sop6OmlaL6n3REi96LnB_151N8OkFUE30zEw7N_XZxwWv5Lja1J_vgHRCOvj5p-0tRdF3IsIcQxFv6Ku5h6q96DRLgYCKVbfnTkszMqVv79cKGrAuVgCcehZPY-rhRtWbOfR5lNierkGmTjHxe-tldIHZ8HKKQl_NPWVpOxctcWgr3gSLgp86YEyE8fChpexUxVK5IMnPE_PUE2hjqYPfW_E7uxJRGyIJakzwfT8kILxOHrfxQMHXAz2lKLZZ73imKdKIxkxRPmYAzji5aaBpVc_ScaZPTpNwX5ruKOhFHZU6cvtbltxmROzK_vDyJug_RxN_t0QHkQHzaSOz1-n_4KvVQ4uC1nRliAV4O61nqluNX7OmR8JZf1FUpSXgAVNQsnGzXx9T5wenhbE4v64tfweXMP3KwFuMMGroORJpP68llYKDRhx1YQHP8_BkoWvVidI46cjBGXza3yNgrk9QlXZzOFRRXOQBYQp0sX4kr3AI0Lh3C8dTwP7jqL9SJfOv4NHLxsLVPaTGi7s-I64iGQiR9ytBxVW1mtblJKfPHNX7dLgRWNXvQKxMMzC0byf_z9bztQ2K3wezqmR81aW_5apexUrOlbSqDc00_e3kqFXDFr2jBwDZ85iW6qRty5KfsH740drSog-uwvB7sqIqPQ-YODkJzZyJOi0tMFEpve1jXUuHytHzbIOEsPLv4muezFh8rM3N0nWTEmssKc3Xm3g3ex0cFmQPLQ_8vPilYvkEmbL2AoYdhPqlpDFbInfgqt8OwsSe-2OBRTDzJGDgkcJffCvPwVVzlN4va6tLG9RxOrjS3JoqCapEM_g27uV9QJs4NoPAVcw1Ii04G6GwZOiUx4MIHDOpyMQz--rh6hED1fUrhMVbdRjUYCPhRFRXtPK7XVFXrMrrSnv88yKtOQgcN3ZER97OM-rkcU"),
-                                fit: BoxFit.contain),
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(5),
-                                topRight: Radius.circular(5)),
-                            color: Colors.black,
-                          ),
-                        ),
+                        FutureBuilder<String> (
+                          future: db.getImageLink(item.currentView),
+                          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                            NetworkImage view = snapshot.hasData ? NetworkImage(snapshot.data!) : NetworkImage(
+                            "https://yandex-images.clstorage.net/5DjV0L235/3c2c1fyMA/-Ukf_3vh1HXW_AdIF4vjvmL-9GE3Ynw9zVBKkoPDwFKm2sop6OmlaL6n3REi96LnB_151N8OkFUE30zEw7N_XZxwWv5Lja1J_vgHRCOvj5p-0tRdF3IsIcQxFv6Ku5h6q96DRLgYCKVbfnTkszMqVv79cKGrAuVgCcehZPY-rhRtWbOfR5lNierkGmTjHxe-tldIHZ8HKKQl_NPWVpOxctcWgr3gSLgp86YEyE8fChpexUxVK5IMnPE_PUE2hjqYPfW_E7uxJRGyIJakzwfT8kILxOHrfxQMHXAz2lKLZZ73imKdKIxkxRPmYAzji5aaBpVc_ScaZPTpNwX5ruKOhFHZU6cvtbltxmROzK_vDyJug_RxN_t0QHkQHzaSOz1-n_4KvVQ4uC1nRliAV4O61nqluNX7OmR8JZf1FUpSXgAVNQsnGzXx9T5wenhbE4v64tfweXMP3KwFuMMGroORJpP68llYKDRhx1YQHP8_BkoWvVidI46cjBGXza3yNgrk9QlXZzOFRRXOQBYQp0sX4kr3AI0Lh3C8dTwP7jqL9SJfOv4NHLxsLVPaTGi7s-I64iGQiR9ytBxVW1mtblJKfPHNX7dLgRWNXvQKxMMzC0byf_z9bztQ2K3wezqmR81aW_5apexUrOlbSqDc00_e3kqFXDFr2jBwDZ85iW6qRty5KfsH740drSog-uwvB7sqIqPQ-YODkJzZyJOi0tMFEpve1jXUuHytHzbIOEsPLv4muezFh8rM3N0nWTEmssKc3Xm3g3ex0cFmQPLQ_8vPilYvkEmbL2AoYdhPqlpDFbInfgqt8OwsSe-2OBRTDzJGDgkcJffCvPwVVzlN4va6tLG9RxOrjS3JoqCapEM_g27uV9QJs4NoPAVcw1Ii04G6GwZOiUx4MIHDOpyMQz--rh6hED1fUrhMVbdRjUYCPhRFRXtPK7XVFXrMrrSnv88yKtOQgcN3ZER97OM-rkcU");
+                            return Container(
+                                width: double.infinity,
+                                height: 250,
+                                margin: const EdgeInsets.only(bottom: 60),
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: view,
+                                      fit: BoxFit.contain),
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(5),
+                                      topRight: Radius.circular(5)),
+                                  color: Colors.black,
+                                ),
+                              );
+                            }),
                         Container(
                             height: 60,
                             alignment: Alignment.centerLeft,
@@ -61,7 +69,7 @@ class CamerasList extends ViewModelWidget<CamerasScreenViewModel> {
                                 child: InkWell(
                                   borderRadius: BorderRadius.circular(5),
                                   splashColor: Colors.grey.withAlpha(30),
-                                  onTap: () => viewModel.openCamera(context, index, item.location ?? ''),
+                                  onTap: () => viewModel.openCamera(context, item),
                                 ))),
                       ]));
             }),

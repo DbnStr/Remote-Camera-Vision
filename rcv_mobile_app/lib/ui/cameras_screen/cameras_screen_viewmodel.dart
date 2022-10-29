@@ -15,19 +15,20 @@ class CamerasScreenViewModel extends ChangeNotifier {
   CamerasScreenViewModel(this.user);
 
   Future<void> initialise() async {
+    print('cameras');
     for (var id in user.cameras) {
       CameraModel camera = await db.getCameraById(id);
       cameras.add(camera);
+      print('id: ${camera.id}');
     }
 
     notifyListeners();
   }
 
-  void openCamera(context, index, name) {
+  void openCamera(context, camera) {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return ChangeNotifierProvider(
-          create: (_) => CameraModel('defaultCamera', 'Москва'),
-          child: SingleCameraScreenView(index: index, cameraName: name));
+      print('open');
+      return SingleCameraScreenView(camera);
     }));
   }
 

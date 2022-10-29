@@ -1,12 +1,13 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../services/firebase.dart';
 import '../single_camera_screen_viewmodel.dart';
 
 
 class Camera extends ViewModelWidget<SingleCameraScreenViewModel> {
+  final DatabaseService db = DatabaseService();
+
   @override
   Widget build(BuildContext context, SingleCameraScreenViewModel viewModel) {
     return (
@@ -19,9 +20,14 @@ class Camera extends ViewModelWidget<SingleCameraScreenViewModel> {
               borderRadius: BorderRadius.all(Radius.circular(5)),
               color: Colors.black,
             ),
-            child: viewModel.model.currentView != null ?
-              Image.memory(base64Decode(viewModel.model.currentView!), height: 400, width: 400)
-                : Image.asset('assets/images/sample1.jpg', height: 400, width: 400),
+            child: FutureBuilder<String> (
+                future: db.getImageLink(viewModel.model.currentView),
+                builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                  return snapshot.hasData ?
+                    Image.network(snapshot.data!, height: 400, width: 400) :
+                    Image.asset('assets/images/sample1.jpg', height: 400, width: 400);
+                }
+            )
           ),
         )
     );

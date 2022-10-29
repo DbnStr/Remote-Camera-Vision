@@ -2,18 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rcv_mobile_app/constants/colors.dart';
 import 'package:rcv_mobile_app/constants/text.dart';
+import 'package:rcv_mobile_app/models/current_camera_model.dart';
 import 'package:rcv_mobile_app/ui/single_camera_screen/single_camera_screen_viewmodel.dart';
 import 'package:rcv_mobile_app/ui/single_camera_screen/widgets/buttons_widget.dart';
 import 'package:rcv_mobile_app/ui/single_camera_screen/widgets/camera_widget.dart';
 import 'package:stacked/stacked.dart';
 
 class SingleCameraScreenView extends StatelessWidget {
-  final int index;
-  final String cameraName;
+  final CameraModel camera;
 
-  const SingleCameraScreenView(
-      {Key? key, required this.index, required this.cameraName})
-      : super(key: key);
+  const SingleCameraScreenView(this.camera, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +33,7 @@ class SingleCameraScreenView extends StatelessWidget {
                 SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Text(
-                      cameraName,
+                      camera.location ?? '',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,

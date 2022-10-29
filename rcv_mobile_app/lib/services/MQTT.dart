@@ -9,6 +9,8 @@ import 'package:rcv_mobile_app/models/coordinates_model.dart';
 import 'package:rcv_mobile_app/models/current_camera_model.dart';
 import 'package:rcv_mobile_app/models/person_model.dart';
 
+import 'firebase.dart';
+
 class MQTT {
 
   final String host;
@@ -39,7 +41,7 @@ class MQTT {
     _client.connectionMessage = connMess;
   }
 
-  Future connect() async {
+  Future<void> connect() async {
     log('MQTT :: Connecting...');
     try {
       await _client.connect();
@@ -58,7 +60,7 @@ class MQTT {
       for (String topic in topics) {
         _client.subscribe(topic, MqttQos.atMostOnce);
       }
-      _client.updates!.listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
+      _client.updates!.listen((List<MqttReceivedMessage<MqttMessage?>>? c) async {
         log("MQTT :: new message");
         for (MqttReceivedMessage mes in c!) {
           log("MQTT :: receive new message from topic : ${mes.topic}");
@@ -68,12 +70,10 @@ class MQTT {
           Map<String, dynamic> data = jsonDecode(stringMes);
 
           if (mes.topic == Constants.CURENT_VIEW_TOPIC_NAME) {
-            model!.setView(data['image'], DateTime.parse(data['time']));
+            model!.setView(data['view'], DateTime.parse(data['viewDateTime']));
           }
 
           if (mes.topic == Constants.RECOGNITION_TOPIC_NAME) {
-            final view = data['image'];
-            final time = DateTime.parse(data['time']);
             final persons = <Person>[];
             for (Map<String, dynamic> personJson in data['persons']) {
               final coordJson = personJson['coordinates'];
@@ -83,7 +83,9 @@ class MQTT {
               persons.add(Person(personJson['id'], personJson['name'], coord));
             }
             model!.addNotification(CameraNotification(
-                view: view, viewDateTime: time, persons: persons));
+                view: data['view'],
+                viewDateTime: DateTime.parse(data['viewDateTime']),
+                persons: persons));
           }
         }
       });
