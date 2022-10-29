@@ -7,16 +7,13 @@ import '../../models/current_camera_model.dart';
 import '../../services/MQTT.dart';
 
 class SingleCameraScreenViewModel extends ChangeNotifier {
-  late String cameraName;
-  late CameraModel model;
   late MQTT mqtt;
-
   final CameraModel camera;
+
   SingleCameraScreenViewModel(this.camera);
 
   void initialise(context) {
     print("init camera screen state");
-    cameraName = "CAMERA";
     final topics = <String>[];
     topics.add(Constants.RECOGNITION_TOPIC_NAME);
     topics.add(Constants.CURENT_VIEW_TOPIC_NAME);
@@ -25,10 +22,9 @@ class SingleCameraScreenViewModel extends ChangeNotifier {
     mqtt.initializeMQTTClient();
     mqtt.connect();
 
-    model = camera;
     mqtt.model = camera;
 
-    model.addListener(() {
+    camera.addListener(() {
       notifyListeners();
     });
 
@@ -45,7 +41,8 @@ class SingleCameraScreenViewModel extends ChangeNotifier {
   void openNotifications(context) {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return ChangeNotifierProvider(
-          create: (_) => CameraModel('defaultCamera', 'Москва'), child: NotificationsScreenView());
+          create: (_) => CameraModel('defaultCamera', 'Москва'),
+          child: NotificationsScreenView(notifications: camera.notifications));
     }));
   }
 }

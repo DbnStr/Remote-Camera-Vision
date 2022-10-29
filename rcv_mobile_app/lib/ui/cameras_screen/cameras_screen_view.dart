@@ -9,6 +9,7 @@ import 'cameras_screen_viewmodel.dart';
 
 class CamerasScreenView extends StatelessWidget {
   final User user;
+
   const CamerasScreenView({Key? key, required this.user}) : super(key: key);
 
   @override

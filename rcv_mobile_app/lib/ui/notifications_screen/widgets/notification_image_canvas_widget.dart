@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'dart:ui' as ui;
 
 import '../../../constants/colors.dart';
@@ -8,6 +9,9 @@ class NotificationImageCanvas extends CustomPainter {
 
   ui.Image? image;
   List<dynamic>? bbox;
+
+  @override
+  bool shouldRepaint(NotificationImageCanvas oldDelegate) => oldDelegate.image != this.image;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -52,10 +56,5 @@ class NotificationImageCanvas extends CustomPainter {
       canvas.drawLine(downRight, RightUp, framePaint);
       canvas.drawLine(leftUp, RightUp, framePaint);
     }
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
   }
 }

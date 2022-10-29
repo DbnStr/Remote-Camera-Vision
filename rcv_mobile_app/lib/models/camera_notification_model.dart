@@ -11,8 +11,10 @@ class CameraNotification {
   CameraNotification.fromJson(Map<String, dynamic> json)
       : this(
       view: json['view'] as String?,
-      viewDateTime: json['viewDateTime'] as DateTime?,
-      persons: (json['persons'] as List?)?.cast<Person>()
+      viewDateTime: DateTime.parse(json['viewDateTime'].toDate().toString()),
+      persons: List.from(json['persons'])
+          .map((e) => Person.fromJson(Map<String, dynamic>.from(e)))
+          .toList()
   );
 
   Map<String, dynamic> toJson() {

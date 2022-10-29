@@ -8,12 +8,11 @@ import 'package:rcv_mobile_app/ui/single_camera_screen/widgets/buttons_widget.da
 import 'package:rcv_mobile_app/ui/single_camera_screen/widgets/camera_widget.dart';
 import 'package:stacked/stacked.dart';
 
+
 class SingleCameraScreenView extends StatelessWidget {
   final CameraModel camera;
 
-  const SingleCameraScreenView(
-      {Key? key, required this.camera})
-      : super(key: key);
+  const SingleCameraScreenView({super.key, required this.camera});
 
   @override
   Widget build(BuildContext context) {

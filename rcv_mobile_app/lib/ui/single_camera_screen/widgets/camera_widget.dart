@@ -21,7 +21,7 @@ class Camera extends ViewModelWidget<SingleCameraScreenViewModel> {
               color: Colors.black,
             ),
             child: FutureBuilder<String> (
-                future: db.getImageLink(viewModel.model.currentView),
+                future: db.getImageLink(viewModel.camera.currentView),
                 builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                   return snapshot.hasData ?
                     Image.network(snapshot.data!, height: 400, width: 400) :
