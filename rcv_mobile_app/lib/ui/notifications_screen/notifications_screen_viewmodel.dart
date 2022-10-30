@@ -1,11 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'dart:ui' as ui;
 
 import '../../models/camera_notification_model.dart';
+import '../../services/firebase.dart';
 import '../notification_screen/notification_screen_view.dart';
 
 class NotificationsScreenViewModel extends ChangeNotifier {
+  final DatabaseService db = DatabaseService();
   final List<CameraNotification> notifications;
   List<ui.Image?> images = [];
 
@@ -17,20 +20,19 @@ class NotificationsScreenViewModel extends ChangeNotifier {
 
   NotificationsScreenViewModel(this.notifications);
 
-  pathToImage(path) async {
-    final ByteData bytes = await rootBundle.load(path!);
-    final Uint8List bytes_list = bytes.buffer.asUint8List();
-    ui.Codec codec = await ui.instantiateImageCodec(bytes_list);
-    ui.FrameInfo frame = await codec.getNextFrame();
-    return frame.image;
-  }
-
-  Future<ui.Image> getImage(path) async {
-    return await pathToImage(path);
+  Future<ui.Image> getImage(String? path) async {
+    String url = await db.getImageLink(path);
+    var completer = Completer<ImageInfo>();
+    var img = NetworkImage(url);
+    img.resolve(const ImageConfiguration()).addListener(ImageStreamListener((info, _) {
+      completer.complete(info);
+    }));
+    ImageInfo imageInfo = await completer.future;
+    return imageInfo.image;
   }
 
   getImageByIndex(index){
-    if (images.length == 0) {
+    if (images.isEmpty) {
       return null;
     }
     return images[index];
