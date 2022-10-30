@@ -12,7 +12,7 @@ class Person {
             json['id'] as String?,
             json['name'] as String?,
             Coordinates.fromJson(
-                Map<String, dynamic>.from(json['faceCoordinates'])));
+                Map<String, dynamic>.from(json['coordinates'])));
 
   Map<String, dynamic> toJson() {
     return {
